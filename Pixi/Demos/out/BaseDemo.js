@@ -13,6 +13,7 @@ var BaseDemo = /** @class */ (function (_super) {
     __extends(BaseDemo, _super);
     function BaseDemo() {
         var _this = _super.call(this) || this;
+        console.log(PIXI);
         _this._renderer = new PIXI.WebGLRenderer(1136, 640);
         _this._background = new PIXI.Sprite(PIXI.Texture.EMPTY);
         _this._resources = [];
