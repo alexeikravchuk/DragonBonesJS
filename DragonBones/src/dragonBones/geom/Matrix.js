@@ -3,11 +3,6 @@
  * @version DragonBones 3.0
  * @language en_US
  */
-/**
- * - 2D 转换矩阵。
- * @version DragonBones 3.0
- * @language zh_CN
- */
 export class Matrix {
 	/**
 	 * - The value that affects the positioning of pixels along the x axis when scaling or rotating an image.
@@ -15,78 +10,48 @@ export class Matrix {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 缩放或旋转图像时影响像素沿 x 轴定位的值。
-	 * @default 1.0
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	a;
+
 	/**
 	 * - The value that affects the positioning of pixels along the y axis when rotating or skewing an image.
 	 * @default 0.0
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 旋转或倾斜图像时影响像素沿 y 轴定位的值。
-	 * @default 0.0
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	b;
+
 	/**
 	 * - The value that affects the positioning of pixels along the x axis when rotating or skewing an image.
 	 * @default 0.0
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 旋转或倾斜图像时影响像素沿 x 轴定位的值。
-	 * @default 0.0
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	c;
+
 	/**
 	 * - The value that affects the positioning of pixels along the y axis when scaling or rotating an image.
 	 * @default 1.0
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 缩放或旋转图像时影响像素沿 y 轴定位的值。
-	 * @default 1.0
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	d;
+
 	/**
 	 * - The distance by which to translate each point along the x axis.
 	 * @default 0.0
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 沿 x 轴平移每个点的距离。
-	 * @default 0.0
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	tx;
+
 	/**
 	 * - The distance by which to translate each point along the y axis.
 	 * @default 0.0
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 沿 y 轴平移每个点的距离。
-	 * @default 0.0
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
-	ty;
+	_ty;
+
 	/**
 	 * @private
 	 */
@@ -97,6 +62,18 @@ export class Matrix {
 		this.d = d;
 		this.tx = tx;
 		this.ty = ty;
+	}
+
+	get ty() {
+		return this._ty;
+	}
+
+	set ty(value) {
+		
+		if(isNaN(value)) {
+			debugger;
+		}
+		this._ty = value;
 	}
 
 	toString() {
@@ -115,6 +92,7 @@ export class Matrix {
 			this.ty
 		);
 	}
+
 	/**
 	 * @private
 	 */
@@ -128,6 +106,7 @@ export class Matrix {
 
 		return this;
 	}
+
 	/**
 	 * @private
 	 */
@@ -141,17 +120,12 @@ export class Matrix {
 
 		return this;
 	}
+
 	/**
 	 * - Convert to unit matrix.
 	 * The resulting matrix has the following properties: a=1, b=0, c=0, d=1, tx=0, ty=0.
 	 * @version DragonBones 3.0
 	 * @language en_US
-	 */
-	/**
-	 * - 转换为单位矩阵。
-	 * 该矩阵具有以下属性：a=1、b=0、c=0、d=1、tx=0、ty=0。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
 	 */
 	identity() {
 		this.a = this.d = 1.0;
@@ -160,17 +134,12 @@ export class Matrix {
 
 		return this;
 	}
+
 	/**
 	 * - Multiplies the current matrix with another matrix.
 	 * @param value - The matrix that needs to be multiplied.
 	 * @version DragonBones 3.0
 	 * @language en_US
-	 */
-	/**
-	 * - 将当前矩阵与另一个矩阵相乘。
-	 * @param value - 需要相乘的矩阵。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
 	 */
 	concat(value) {
 		let aA = this.a * value.a;
@@ -203,15 +172,11 @@ export class Matrix {
 
 		return this;
 	}
+
 	/**
 	 * - Convert to inverse matrix.
 	 * @version DragonBones 3.0
 	 * @language en_US
-	 */
-	/**
-	 * - 转换为逆矩阵。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
 	 */
 	invert() {
 		let aA = this.a;
@@ -254,6 +219,7 @@ export class Matrix {
 
 		return this;
 	}
+	
 	/**
 	 * - Apply a matrix transformation to a specific point.
 	 * @param x - X coordinate.
@@ -262,15 +228,6 @@ export class Matrix {
 	 * @param delta - Whether to ignore tx, ty's conversion to point.
 	 * @version DragonBones 3.0
 	 * @language en_US
-	 */
-	/**
-	 * - 将矩阵转换应用于特定点。
-	 * @param x - 横坐标。
-	 * @param y - 纵坐标。
-	 * @param result - 应用转换之后的点。
-	 * @param delta - 是否忽略 tx，ty 对点的转换。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
 	 */
 	transformPoint(x, y, result, delta = false) {
 		result.x = this.a * x + this.c * y;
@@ -281,6 +238,7 @@ export class Matrix {
 			result.y += this.ty;
 		}
 	}
+	
 	/**
 	 * @private
 	 */

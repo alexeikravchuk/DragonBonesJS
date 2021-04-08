@@ -1,3 +1,4 @@
+import { BaseObject } from '../core/BaseObject';
 import { ObjectDataParser } from './ObjectDataParser';
 
 /**

@@ -460,8 +460,11 @@ export class DoubleValueTimelineState extends TweenTimelineState {
 					this._differenceB = valueArray[nextValueOffset + 1] * valueScale - this._currentB;
 				}
 			} else {
-				this._resultA = valueArray[valueOffset] * valueScale;
-				this._resultB = valueArray[valueOffset + 1] * valueScale;
+				// TODO:
+				const resA = valueArray[valueOffset]; // || 0;
+				const resB = valueArray[valueOffset + 1]; // || 0;
+				this._resultA = resA * valueScale;
+				this._resultB = resB * valueScale;
 			}
 		} else {
 			this._resultA = 0.0;

@@ -1,3 +1,11 @@
+import { Bone } from '../armature/Bone';
+import { IKConstraint } from '../armature/Constraint';
+import { Surface } from '../armature/Surface';
+import { BaseObject } from '../core/BaseObject';
+import { BoneType, ConstraintType, DisplayType } from '../core/DragonBones';
+import { BinaryDataParser } from '../parser/BinaryDataParser';
+import { ObjectDataParser } from '../parser/ObjectDataParser';
+
 /**
  * - Base class for the factory that create the armatures. (Typically only one global factory instance is required)
  * The factory instance create armatures by parsed and added DragonBonesData instances and TextureAtlasData instances.
@@ -9,15 +17,6 @@
  * @version DragonBones 3.0
  * @language en_US
  */
-
-import { Bone } from '../armature/Bone';
-import { IKConstraint } from '../armature/Constraint';
-import { Surface } from '../armature/Surface';
-import { BaseObject } from '../core/BaseObject';
-import { BoneType, ConstraintType, DisplayType } from '../core/DragonBones';
-import { BinaryDataParser } from '../parser/BinaryDataParser';
-import { ObjectDataParser } from '../parser/ObjectDataParser';
-
 export class BaseFactory {
 	static _objectParser = null;
 	static _binaryParser = null;
@@ -30,12 +29,12 @@ export class BaseFactory {
 	_textureAtlasDataMap = {};
 	_dragonBones = null;
 	_dataParser = null;
+
 	/**
 	 * - Create a factory instance. (typically only one global factory instance is required)
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-
 	constructor(dataParser = null) {
 		if (BaseFactory._objectParser === null) {
 			BaseFactory._objectParser = new ObjectDataParser();
@@ -141,6 +140,7 @@ export class BaseFactory {
 			bone.init(boneData, armature);
 		}
 	}
+
 	/**
 	 * @private
 	 */
@@ -298,9 +298,9 @@ export class BaseFactory {
 		return display;
 	}
 
-	/* _buildTextureAtlasData(textureAtlasData, textureAtlas);
-        _buildArmature(dataPackage);
-        _buildSlot(dataPackage, slotData, armature); */
+	_buildTextureAtlasData(textureAtlasData, textureAtlas) {}
+	_buildArmature(dataPackage) {}
+	_buildSlot(dataPackage, slotData, armature) {}
 
 	/**
 	 * - Parse the raw data to a DragonBonesData instance and cache it to the factory.
@@ -315,7 +315,6 @@ export class BaseFactory {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	parseDragonBonesData(rawData, name = null, scale = 1.0) {
 		const dataParser = rawData instanceof ArrayBuffer ? BaseFactory._binaryParser : this._dataParser;
 		const dragonBonesData = dataParser.parseDragonBonesData(rawData, scale);
@@ -336,6 +335,7 @@ export class BaseFactory {
 
 		return dragonBonesData;
 	}
+
 	/**
 	 * - Parse the raw texture atlas data and the texture atlas object to a TextureAtlasData instance and cache it to the factory.
 	 * @param rawData - The raw texture atlas data.
@@ -350,7 +350,6 @@ export class BaseFactory {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	parseTextureAtlasData(rawData, textureAtlas, name = null, scale = 1.0) {
 		const textureAtlasData = this._buildTextureAtlasData(null, null);
 		this._dataParser.parseTextureAtlasData(rawData, textureAtlasData, scale);
@@ -359,6 +358,7 @@ export class BaseFactory {
 
 		return textureAtlasData;
 	}
+
 	/**
 	 * - Update texture atlases.
 	 * @param textureAtlases - The texture atlas objects.
@@ -366,7 +366,6 @@ export class BaseFactory {
 	 * @version DragonBones 5.7
 	 * @language en_US
 	 */
-
 	updateTextureAtlases(textureAtlases, name) {
 		const textureAtlasDatas = this.getTextureAtlasData(name);
 		if (textureAtlasDatas !== null) {
@@ -542,6 +541,7 @@ export class BaseFactory {
 			delete this._textureAtlasDataMap[k];
 		}
 	}
+
 	/**
 	 * - Create a armature from cached DragonBonesData instances and TextureAtlasData instances.
 	 * Note that when the created armature that is no longer in use, you need to explicitly dispose {@link #dragonBones.Armature#dispose()}.
@@ -559,7 +559,6 @@ export class BaseFactory {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-
 	buildArmature(armatureName, dragonBonesName = '', skinName = '', textureAtlasName = '') {
 		const dataPackage = new BuildArmaturePackage();
 		if (
@@ -586,6 +585,7 @@ export class BaseFactory {
 
 		return armature;
 	}
+
 	/**
 	 * @private
 	 */
@@ -614,6 +614,7 @@ export class BaseFactory {
 			slot.replaceDisplay(null, displayIndex);
 		}
 	}
+
 	/**
 	 * - Replaces the current display data for a particular slot with a specific display data.
 	 * Specify display data with "dragonBonesName/armatureName/slotName/displayName".
@@ -631,7 +632,6 @@ export class BaseFactory {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	replaceSlotDisplay(dragonBonesName, armatureName, slotName, displayName, slot, displayIndex = -1) {
 		const armatureData = this.getArmatureData(armatureName, dragonBonesName || '');
 		if (armatureData === null || armatureData.defaultSkin === null) {
@@ -666,6 +666,7 @@ export class BaseFactory {
 
 		return true;
 	}
+
 	/**
 	 * - Share specific skin data with specific armature.
 	 * @param armature - The armature.
@@ -685,7 +686,6 @@ export class BaseFactory {
 	 * @version DragonBones 5.6
 	 * @language en_US
 	 */
-
 	replaceSkin(armature, skin, isOverride = false, exclude = null) {
 		let success = false;
 		const defaultSkin = skin.parent.defaultSkin;
@@ -726,6 +726,7 @@ export class BaseFactory {
 
 		return success;
 	}
+
 	/**
 	 * - Replaces the existing animation data for a specific armature with the animation data for the specific armature data.
 	 * This enables you to make a armature template so that other armature without animations can share it's animations.
@@ -745,7 +746,6 @@ export class BaseFactory {
 	 * @version DragonBones 5.6
 	 * @language en_US
 	 */
-
 	replaceAnimation(armature, armatureData, isOverride = true) {
 		const skinData = armatureData.defaultSkin;
 		if (skinData === null) {
@@ -794,27 +794,30 @@ export class BaseFactory {
 
 		return true;
 	}
+
 	/**
 	 * @private
 	 */
 	getAllDragonBonesData() {
 		return this._dragonBonesDataMap;
 	}
+
 	/**
 	 * @private
 	 */
 	getAllTextureAtlasData() {
 		return this._textureAtlasDataMap;
 	}
+
 	/**
 	 * - An Worldclock instance updated by engine.
 	 * @version DragonBones 5.7
 	 * @language en_US
 	 */
-
 	get clock() {
 		return this._dragonBones.clock;
 	}
+
 	/**
 	 * @private
 	 */
@@ -822,6 +825,7 @@ export class BaseFactory {
 		return this._dragonBones;
 	}
 }
+
 /**
  * @private
  */

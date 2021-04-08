@@ -10,17 +10,20 @@ export class Constraint extends BaseObject {
 	static _helpMatrix = new Matrix();
 	static _helpTransform = new Transform();
 	static _helpPoint = new Point();
+
 	/**
 	 * - For timeline state.
 	 * @internal
 	 */
 	_constraintData;
 	_armature;
+
 	/**
 	 * - For sort bones.
 	 * @internal
 	 */
 	_target;
+
 	/**
 	 * - For sort bones.
 	 * @internal
@@ -58,6 +61,7 @@ export class IKConstraint extends Constraint {
 	 * @internal
 	 */
 	_bendPositive;
+	
 	/**
 	 * - For timeline state.
 	 * @internal

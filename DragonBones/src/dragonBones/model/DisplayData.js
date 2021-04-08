@@ -41,6 +41,7 @@ export class GeometryData {
 		return intArray[this.offset + dragonBones.BinaryOffset.GeometryTriangleCount];
 	}
 }
+
 /**
  * @private
  */
@@ -58,6 +59,7 @@ export class DisplayData extends BaseObject {
 		this.parent = null; //
 	}
 }
+
 /**
  * @private
  */

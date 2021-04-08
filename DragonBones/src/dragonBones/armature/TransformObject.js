@@ -1,4 +1,3 @@
-
     /**
      * - The base class of the transform object.
      * @see dragonBones.Transform
@@ -16,50 +15,56 @@ import { Transform } from '../geom/Transform';
         static  _helpMatrix = new Matrix();
         static  _helpTransform = new Transform();
         static  _helpPoint = new Point();
+
         /**
          * - A matrix relative to the armature coordinate system.
          * @version DragonBones 3.0
          * @language en_US
          */
-        
          globalTransformMatrix = new Matrix();
+
         /**
          * - A transform relative to the armature coordinate system.
          * @see #updateGlobalTransform()
          * @version DragonBones 3.0
          * @language en_US
          */
-       
          global = new Transform();
+
         /**
          * - The offset transform relative to the armature or the parent bone coordinate system.
          * @see #dragonBones.Bone#invalidUpdate()
          * @version DragonBones 3.0
          * @language en_US
          */
-       
          offset = new Transform();
+
         /**
          * @private
          */
         origin;
+
         /**
          * @private
          */
         userData;
         _globalDirty;
+
         /**
          * @internal
          */
         _alpha;
+
         /**
          * @internal
          */
         _globalAlpha;
+
         /**
          * @internal
          */
         _armature;
+        
         /**
          */
         _onClear() {

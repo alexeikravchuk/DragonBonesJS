@@ -2,7 +2,7 @@ import { BLEND_MODES } from '../../../../../../pixi.js/packages/constants/src';
 import { SimpleMesh } from '../../../../../../pixi.js/packages/mesh-extras/src/SimpleMesh';
 import { Sprite } from '../../../../../../pixi.js/packages/sprite/src/Sprite';
 import { Slot } from '../../../../../DragonBones/src/dragonBones/armature/Slot';
-import { BinaryOffset, BoneType } from '../../../../../DragonBones/src/dragonBones/core/DragonBones';
+import { BinaryOffset, BlendMode, BoneType } from '../../../../../DragonBones/src/dragonBones/core/DragonBones';
 
 /**
  * - The PixiJS slot.
@@ -23,7 +23,7 @@ export class PixiSlot extends Slot {
 		this._textureScale = 1.0;
 		this._renderDisplay = null;
 		// this._updateTransform = PIXI.VERSION[0] === '3' ? this._updateTransformV3 : this._updateTransformV4;
-		this._updateTransform = this._updateTransformV4;
+		this._updateTransform = this._updateTransformV3;
 	}
 
 	_initDisplay(value, isRetain) {

@@ -13,54 +13,63 @@ export class EventObject extends BaseObject {
 	 * @language en_US
 	 */
 	static START = 'start';
+
 	/**
 	 * - Animation loop play complete once.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static LOOP_COMPLETE = 'loopComplete';
+
 	/**
 	 * - Animation play complete.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static COMPLETE = 'complete';
+
 	/**
 	 * - Animation fade in start.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static FADE_IN = 'fadeIn';
+
 	/**
 	 * - Animation fade in complete.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static FADE_IN_COMPLETE = 'fadeInComplete';
+
 	/**
 	 * - Animation fade out start.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static FADE_OUT = 'fadeOut';
+
 	/**
 	 * - Animation fade out complete.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static FADE_OUT_COMPLETE = 'fadeOutComplete';
+
 	/**
 	 * - Animation frame event.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static FRAME_EVENT = 'frameEvent';
+
 	/**
 	 * - Animation frame sound event.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	static SOUND_EVENT = 'soundEvent';
+
 	/**
 	 * @internal
 	 * @private
@@ -90,24 +99,28 @@ export class EventObject extends BaseObject {
 	static toString() {
 		return '[class dragonBones.EventObject]';
 	}
+
 	/**
 	 * - If is a frame event, the value is used to describe the time that the event was in the animation timeline. (In seconds)
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	time;
+
 	/**
 	 * - The event type。
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	type;
+
 	/**
 	 * - The event name. (The frame event name or the frame sound name)
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
 	name;
+
 	/**
 	 * - The armature that dispatch the event.
 	 * @see dragonBones.Armature
@@ -115,6 +128,7 @@ export class EventObject extends BaseObject {
 	 * @language en_US
 	 */
 	armature;
+
 	/**
 	 * - The bone that dispatch the event.
 	 * @see dragonBones.Bone
@@ -122,6 +136,7 @@ export class EventObject extends BaseObject {
 	 * @language en_US
 	 */
 	bone;
+
 	/**
 	 * - The slot that dispatch the event.
 	 * @see dragonBones.Slot
@@ -129,6 +144,7 @@ export class EventObject extends BaseObject {
 	 * @language en_US
 	 */
 	slot;
+
 	/**
 	 * - The animation state that dispatch the event.
 	 * @see dragonBones.AnimationState
@@ -137,13 +153,12 @@ export class EventObject extends BaseObject {
 	 */
 
 	animationState;
+
 	/**
 	 * @private
 	 */
 	actionData;
-	/**
-	 * @private
-	 */
+
 	/**
 	 * - The custom data.
 	 * @see dragonBones.CustomData

@@ -3,36 +3,37 @@
  * @version DragonBones 3.0
  * @language en_US
  */
-/**
- * - 2D 变换。
- * @version DragonBones 3.0
- * @language zh_CN
- */
 export class Transform {
 	/**
 	 * @private
 	 */
 	static PI = Math.PI;
+
 	/**
 	 * @private
 	 */
 	static PI_D = Math.PI * 2.0;
+
 	/**
 	 * @private
 	 */
 	static PI_H = Math.PI / 2.0;
+
 	/**
 	 * @private
 	 */
 	static PI_Q = Math.PI / 4.0;
+
 	/**
 	 * @private
 	 */
 	static RAD_DEG = 180.0 / Math.PI;
+
 	/**
 	 * @private
 	 */
 	static DEG_RAD = Math.PI / 180.0;
+
 	/**
 	 * @private
 	 */
@@ -42,72 +43,61 @@ export class Transform {
 
 		return value;
 	}
+
 	/**
 	 * - Horizontal translate.
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 水平位移。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	x;
+
 	/**
 	 * - Vertical translate.
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 垂直位移。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
-	y;
+	_y;
+	
+
+	get y() {
+		return this._y;
+	}
+
+	set y(value) {
+		this._y = value;
+		// if(isNaN(value)) {
+		// 	debugger;
+		// }
+	}
+
 	/**
 	 * - Skew. (In radians)
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 倾斜。 （以弧度为单位）
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	skew;
+
 	/**
 	 * - rotation. (In radians)
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 旋转。 （以弧度为单位）
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	rotation;
+
 	/**
 	 * - Horizontal Scaling.
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 水平缩放。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	scaleX;
+
 	/**
 	 * - Vertical scaling.
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 垂直缩放。
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
 	scaleY;
+
 	/**
 	 * @private
 	 */
@@ -136,6 +126,7 @@ export class Transform {
 			this.scaleY
 		);
 	}
+
 	/**
 	 * @private
 	 */
@@ -149,6 +140,7 @@ export class Transform {
 
 		return this;
 	}
+
 	/**
 	 * @private
 	 */
@@ -159,6 +151,7 @@ export class Transform {
 
 		return this;
 	}
+
 	/**
 	 * @private
 	 */
@@ -172,6 +165,7 @@ export class Transform {
 
 		return this;
 	}
+
 	/**
 	 * @private
 	 */
@@ -185,6 +179,7 @@ export class Transform {
 
 		return this;
 	}
+
 	/**
 	 * @private
 	 */
@@ -219,6 +214,7 @@ export class Transform {
 
 		return this;
 	}
+	
 	/**
 	 * @private
 	 */

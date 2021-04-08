@@ -60,6 +60,7 @@ export class TextureAtlasData extends BaseObject {
 		this.name = '';
 		this.imagePath = '';
 	}
+
 	/**
 	 * @private
 	 */
@@ -84,10 +85,12 @@ export class TextureAtlasData extends BaseObject {
 			this.textures[k] = texture;
 		}
 	}
+
 	/**
 	 * @internal
 	 */
 	createTexture() {}
+
 	/**
 	 * @internal
 	 */
@@ -100,6 +103,7 @@ export class TextureAtlasData extends BaseObject {
 		value.parent = this;
 		this.textures[value.name] = value;
 	}
+	
 	/**
 	 * @private
 	 */
@@ -107,6 +111,7 @@ export class TextureAtlasData extends BaseObject {
 		return textureName in this.textures ? this.textures[textureName] : null;
 	}
 }
+
 /**
  * @private
  */

@@ -13,15 +13,18 @@ import {
 	SlotColorTimelineState,
 	SlotDisplayTimelineState,
 	SurfaceTimelineState,
+	ZOrderTimelineState,
 } from './TimelineState';
 
 /**
- * - The animation state is generated when the animation data is played.
- * @see dragonBones.Animation
- * @see dragonBones.AnimationData
- * @version DragonBones 3.0
- * @language en_US
- */
+
+    /**
+     * - The animation state is generated when the animation data is played.
+     * @see dragonBones.Animation
+     * @see dragonBones.AnimationData
+     * @version DragonBones 3.0
+     * @language en_US
+     */
 export class AnimationState extends BaseObject {
 	static toString() {
 		return '[class dragonBones.AnimationState]';
@@ -34,7 +37,6 @@ export class AnimationState extends BaseObject {
 	 * @private
 	 */
 	additive;
-
 	/**
 	 * - Whether the animation state has control over the display object properties of the slots.
 	 * Sometimes blend a animation state does not want it to control the display object properties of the slots,
@@ -44,7 +46,6 @@ export class AnimationState extends BaseObject {
 	 * @language en_US
 	 */
 	displayControl;
-
 	/**
 	 * - Whether to reset the objects without animation to the armature pose when the animation state is start to play.
 	 * This property should usually be set to false when blend multiple animation states.
@@ -53,29 +54,25 @@ export class AnimationState extends BaseObject {
 	 * @language en_US
 	 */
 	resetToPose;
-
 	/**
 	 * @private
 	 */
 	blendType;
-
 	/**
 	 * - The play times. [0: Loop play, [1~N]: Play N times]
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
 	playTimes;
-
 	/**
 	 * - The blend layer.
 	 * High layer animation state will get the blend weight first.
 	 * When the blend weight is assigned more than 1, the remaining animation states will no longer get the weight assigned.
-	 * @
+	 * @readonly
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
 	layer;
-
 	/**
 	 * - The play speed.
 	 * The value is an overlay relationship with {@link dragonBones.Animation#timeScale}.
@@ -85,27 +82,22 @@ export class AnimationState extends BaseObject {
 	 * @language en_US
 	 */
 	timeScale;
-
 	/**
 	 * @private
 	 */
 	parameterX;
-
 	/**
 	 * @private
 	 */
 	parameterY;
-
 	/**
 	 * @private
 	 */
 	positionX;
-
 	/**
 	 * @private
 	 */
 	positionY;
-
 	/**
 	 * - The auto fade out time when the animation state play completed.
 	 * [-1: Do not fade out automatically, [0~N]: The fade out time] (In seconds)
@@ -120,7 +112,7 @@ export class AnimationState extends BaseObject {
 	fadeTotalTime;
 	/**
 	 * - The name of the animation state. (Can be different from the name of the animation data)
-	 * @
+	 * @readonly
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
@@ -128,7 +120,7 @@ export class AnimationState extends BaseObject {
 	/**
 	 * - The blend group name of the animation state.
 	 * This property is typically used to specify the substitution of multiple animation states blend.
-	 * @
+	 * @readonly
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
@@ -149,12 +141,10 @@ export class AnimationState extends BaseObject {
 	 * @internal
 	 */
 	_subFadeState;
-
 	/**
 	 * @internal
 	 */
 	_position;
-
 	/**
 	 * @internal
 	 */
@@ -162,12 +152,10 @@ export class AnimationState extends BaseObject {
 	_weight;
 	_fadeTime;
 	_time;
-
 	/**
 	 * @internal
 	 */
 	_fadeProgress;
-
 	/**
 	 * @internal
 	 */
@@ -697,7 +685,7 @@ export class AnimationState extends BaseObject {
 		if (this._subFadeState > 0) {
 			// Fade complete event.
 			if (!isFadeOut) {
-				this._playheadState = 1; // x1
+				this._playheadState |= 1; // x1
 				this._fadeState = 0;
 			}
 
@@ -1294,6 +1282,7 @@ export class AnimationState extends BaseObject {
 			animationState._parent = this;
 		}
 	}
+
 	/**
 	 * @internal
 	 */
@@ -1339,7 +1328,7 @@ export class AnimationState extends BaseObject {
 	get isPlaying() {
 		return (this._playheadState & 2) !== 0 && this._actionTimeline.playState <= 0;
 	}
-
+	
 	/**
 	 * - Whether the animation state is play completed.
 	 * @version DragonBones 3.0
@@ -1421,13 +1410,6 @@ export class AnimationState extends BaseObject {
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
-
-	/**
-	 * - The animation data.
-	 * @see dragonBones.AnimationData
-	 * @version DragonBones 3.0
-	 * @language en_US
-	 */
 	get weight() {
 		return this._weight;
 	}
@@ -1451,7 +1433,6 @@ export class AnimationState extends BaseObject {
 			timeline.dirty = true;
 		}
 	}
-
 	get animationData() {
 		return this._animationData;
 	}

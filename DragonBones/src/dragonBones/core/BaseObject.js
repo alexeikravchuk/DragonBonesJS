@@ -4,7 +4,6 @@
  * @version DragonBones 4.5
  * @language en_US
  */
-
 export class BaseObject {
 	static _hashCode = 0;
 	static _defaultMaxCount = 3000;
@@ -32,6 +31,7 @@ export class BaseObject {
 	static toString() {
 		throw new Error();
 	}
+
 	/**
 	 * - Set the maximum cache count of the specify object pool.
 	 * @param objectConstructor - The specify class. (Set all object pools max cache count if not set)
@@ -39,7 +39,6 @@ export class BaseObject {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-	
 	static setMaxCount(objectConstructor, maxCount) {
 		if (maxCount < 0 || maxCount !== maxCount) {
 			// isNaN
@@ -69,13 +68,13 @@ export class BaseObject {
 			}
 		}
 	}
+
 	/**
 	 * - Clear the cached instances of a specify object pool.
 	 * @param objectConstructor - Specify class. (Clear all cached instances if not set)
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-	
 	static clearPool(objectConstructor = null) {
 		if (objectConstructor !== null) {
 			const classType = String(objectConstructor);
@@ -90,13 +89,13 @@ export class BaseObject {
 			}
 		}
 	}
+
 	/**
 	 * - Get an instance of the specify class from object pool.
 	 * @param objectConstructor - The specify class.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	static borrowObject(objectConstructor) {
 		const classType = String(objectConstructor);
 		const pool = classType in BaseObject._poolsMap ? BaseObject._poolsMap[classType] : null;
@@ -110,22 +109,22 @@ export class BaseObject {
 		object._onClear();
 		return object;
 	}
+
 	/**
 	 * - A unique identification number assigned to the object.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	hashCode = BaseObject._hashCode++;
 	_isInPool = false;
 
 	_onClear() {}
+
 	/**
 	 * - Clear the object and return it back to object pool。
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	returnToPool() {
 		this._onClear();
 		BaseObject._returnObject(this);

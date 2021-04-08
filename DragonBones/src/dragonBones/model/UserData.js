@@ -6,7 +6,6 @@ import { ActionType } from '../core/DragonBones';
  * @version DragonBones 5.0
  * @language en_US
  */
-
 export class UserData extends BaseObject {
 	static toString() {
 		return '[class dragonBones.UserData]';
@@ -32,6 +31,7 @@ export class UserData extends BaseObject {
 	 * @language en_US
 	 */
 	strings = [];
+
 
 	_onClear() {
 		this.ints.length = 0;
@@ -68,7 +68,7 @@ export class UserData extends BaseObject {
 	getInt(index = 0) {
 		return index >= 0 && index < this.ints.length ? this.ints[index] : 0;
 	}
-
+	
 	/**
 	 * - Get the custom float number.
 	 * @version DragonBones 5.0

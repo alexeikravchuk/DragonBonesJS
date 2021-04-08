@@ -10,7 +10,6 @@ export class AnimationData extends BaseObject {
 	static toString() {
 		return '[class dragonBones.AnimationData]';
 	}
-
 	/**
 	 * - FrameIntArray.
 	 * @internal
@@ -219,7 +218,7 @@ export class AnimationData extends BaseObject {
 		}
 
 		for (const bone of this.parent.sortedBones) {
-			const indices = new Array<number>(cacheFrameCount);
+			const indices = new Array(cacheFrameCount);
 			for (let i = 0, l = indices.length; i < l; ++i) {
 				indices[i] = -1;
 			}
@@ -228,7 +227,7 @@ export class AnimationData extends BaseObject {
 		}
 
 		for (const slot of this.parent.sortedSlots) {
-			const indices = new Array<number>(cacheFrameCount);
+			const indices = new Array(cacheFrameCount);
 			for (let i = 0, l = indices.length; i < l; ++i) {
 				indices[i] = -1;
 			}
@@ -293,7 +292,9 @@ export class AnimationData extends BaseObject {
 	 * @private
 	 */
 	getBoneTimelines(timelineName) {
-		return timelineName in this.boneTimelines ? this.boneTimelines[timelineName] : null;
+		const timeline = timelineName in this.boneTimelines ? this.boneTimelines[timelineName] : null;
+
+		return timeline;
 	}
 
 	/**
@@ -331,6 +332,7 @@ export class AnimationData extends BaseObject {
 		return slotName in this.slotCachedFrameIndices ? this.slotCachedFrameIndices[slotName] : null;
 	}
 }
+
 /**
  * @private
  */

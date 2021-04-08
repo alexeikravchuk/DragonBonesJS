@@ -1,5 +1,5 @@
 import { BaseObject } from '../core/BaseObject';
-import { BinaryOffset, BlendMode, BoneType, DisplayType } from '../core/DragonBones';
+import { BinaryOffset, BlendMode, BoneType, DisplayType, DragonBones } from '../core/DragonBones';
 import { ColorTransform } from '../geom/ColorTransform';
 import { Matrix } from '../geom/Matrix';
 import { Armature } from './Armature';

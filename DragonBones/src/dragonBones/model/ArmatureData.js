@@ -577,7 +577,7 @@ export class SlotData extends BaseObject {
 	static toString() {
 		return '[class dragonBones.SlotData]';
 	}
-
+	
 	/**
 	 * @private
 	 */

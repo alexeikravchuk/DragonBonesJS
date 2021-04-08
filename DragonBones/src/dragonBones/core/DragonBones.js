@@ -8,29 +8,29 @@ export const BinaryOffset = {
 	WeigthFloatOffset: 1,
 	WeigthBoneIndices: 2,
 
-	GeometryVertexCount: 3,
-	GeometryTriangleCount: 4,
-	GeometryFloatOffset: 5,
-	GeometryWeightOffset: 6,
-	GeometryVertexIndices: 7,
+	GeometryVertexCount: 0,
+	GeometryTriangleCount: 1,
+	GeometryFloatOffset: 2,
+	GeometryWeightOffset: 3,
+	GeometryVertexIndices: 4,
 
-	TimelineScale: 8,
-	TimelineOffset: 9,
-	TimelineKeyFrameCount: 10,
-	TimelineFrameValueCount: 11,
-	TimelineFrameValueOffset: 12,
-	TimelineFrameOffset: 13,
+	TimelineScale: 0,
+	TimelineOffset: 1,
+	TimelineKeyFrameCount: 2,
+	TimelineFrameValueCount: 3,
+	TimelineFrameValueOffset: 4,
+	TimelineFrameOffset: 5,
 
-	FramePosition: 14,
-	FrameTweenType: 15,
-	FrameTweenEasingOrCurveSampleCount: 15,
-	FrameCurveSamples: 16,
+	FramePosition: 0,
+	FrameTweenType: 1,
+	FrameTweenEasingOrCurveSampleCount: 2,
+	FrameCurveSamples: 3,
 
-	DeformVertexOffset: 17,
-	DeformCount: 18,
-	DeformValueCount: 19,
-	DeformValueOffset: 20,
-	DeformFloatOffset: 21,
+	DeformVertexOffset: 0,
+	DeformCount: 1,
+	DeformValueCount: 2,
+	DeformValueOffset: 3,
+	DeformFloatOffset: 4,
 };
 
 /**
@@ -188,7 +188,7 @@ export const AnimationFadeOutMode = {
  */
 export const AnimationBlendType = {
 	None: 1,
-	E1D: 1,
+	E1D: 2,
 };
 /**
  * @private

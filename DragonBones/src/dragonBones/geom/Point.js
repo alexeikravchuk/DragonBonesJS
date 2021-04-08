@@ -3,7 +3,6 @@
  * @version DragonBones 3.0
  * @language en_US
  */
-
 export class Point {
 	/**
 	 * - The horizontal coordinate.

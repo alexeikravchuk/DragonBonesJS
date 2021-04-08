@@ -14,6 +14,7 @@ export class Animation extends BaseObject {
 	static toString() {
 		return '[class dragonBones.Animation]';
 	}
+
 	/**
 	 * - The play speed of all animations. [0: Stop, (0~1): Slow, 1: Normal, (1~N): Fast]
 	 * @default 1.0
@@ -21,6 +22,7 @@ export class Animation extends BaseObject {
 	 * @language en_US
 	 */
 	timeScale;
+
 	/**
 	 * Update bones and slots cachedFrameIndices.
 	 */
@@ -124,6 +126,7 @@ export class Animation extends BaseObject {
 				break;
 		}
 	}
+
 	/**
 	 * @internal
 	 */
@@ -135,6 +138,7 @@ export class Animation extends BaseObject {
 		this._armature = armature;
 		this._animationConfig = BaseObject.borrowObject(AnimationConfig);
 	}
+	
 	/**
 	 * @internal
 	 */

@@ -13,6 +13,7 @@ export class AnimationConfig extends BaseObject {
 	static toString() {
 		return '[class dragonBones.AnimationConfig]';
 	}
+	
 	/**
 	 * @private
 	 */
@@ -119,6 +120,7 @@ export class AnimationConfig extends BaseObject {
 	 * @language en_US
 	 */
 	timeScale;
+
 	/**
 	 * - The blend weight.
 	 * @default 1.0
@@ -205,7 +207,7 @@ export class AnimationConfig extends BaseObject {
 	clear() {
 		this._onClear();
 	}
-
+	
 	/**
 	 * @private
 	 */

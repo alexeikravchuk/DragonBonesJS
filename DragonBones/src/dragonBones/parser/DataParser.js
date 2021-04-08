@@ -6,6 +6,7 @@ import {
 	BoneType,
 	BoundingBoxType,
 	DisplayType,
+	PositionMode,
 	RotateMode,
 	SpacingMode,
 } from '../core/DragonBones';

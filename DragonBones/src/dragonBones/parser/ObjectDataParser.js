@@ -1,15 +1,33 @@
 import { BaseObject } from '../core/BaseObject';
-import { ActionType, BinaryOffset, BlendMode, BoneType, ConstraintType, DisplayType, TimelineType, TweenType } from '../core/DragonBones';
+import {
+	ActionType,
+	ArmatureType,
+	BinaryOffset,
+	BlendMode,
+	BoneType,
+	ConstraintType,
+	DisplayType,
+	TimelineType,
+	TweenType,
+} from '../core/DragonBones';
 import { ColorTransform } from '../geom/ColorTransform';
 import { Matrix } from '../geom/Matrix';
 import { Point } from '../geom/Point';
 import { Transform } from '../geom/Transform';
 import { AnimationData, TimelineData } from '../model/AnimationData';
 import { ArmatureData, BoneData, SlotData } from '../model/ArmatureData';
+import { PolygonBoundingBoxData } from '../model/BoundingBoxData';
 import { IKConstraintData } from '../model/ConstraintData';
-import { MeshDisplayData, WeightData } from '../model/DisplayData';
+import {
+	ArmatureDisplayData,
+	BoundingBoxDisplayData,
+	ImageDisplayData,
+	MeshDisplayData,
+	WeightData,
+} from '../model/DisplayData';
 import { DragonBonesData } from '../model/DragonBonesData';
 import { SkinData } from '../model/SkinData';
+import { TextureData } from '../model/TextureAtlasData';
 import { ActionData } from '../model/UserData';
 import { DataParser } from './DataParser';
 
@@ -17,9 +35,9 @@ import { DataParser } from './DataParser';
  * @private
  */
 export const FrameValueType = {
-	Step: 1,
-	Int: 2,
-	Float: 3,
+	Step: 0,
+	Int: 1,
+	Float: 2,
 };
 /**
  * @private
@@ -1541,9 +1559,8 @@ export class ObjectDataParser extends DataParser {
 	}
 
 	_parseFrame(rawData, frameStart, frameCount) {
-		// tslint:disable-next-line:no-unused-expression
 		rawData;
-		// tslint:disable-next-line:no-unused-expression
+
 		frameCount;
 
 		const frameOffset = this._frameArray.length;
@@ -1616,7 +1633,7 @@ export class ObjectDataParser extends DataParser {
 	_parseSingleValueFrame(rawData, frameStart, frameCount) {
 		let frameOffset = 0;
 		switch (this._frameValueType) {
-			case 0: {
+			case FrameValueType.Step: {
 				frameOffset = this._parseFrame(rawData, frameStart, frameCount);
 				this._frameArray.length += 1;
 				this._frameArray[frameOffset + 1] = ObjectDataParser._getNumber(
@@ -1627,7 +1644,7 @@ export class ObjectDataParser extends DataParser {
 				break;
 			}
 
-			case 1: {
+			case FrameValueType.Int: {
 				frameOffset = this._parseTweenFrame(rawData, frameStart, frameCount);
 				const frameValueOffset = this._frameIntArray.length;
 				this._frameIntArray.length += 1;
@@ -1638,7 +1655,7 @@ export class ObjectDataParser extends DataParser {
 				break;
 			}
 
-			case 2: {
+			case FrameValueType.Float: {
 				frameOffset = this._parseTweenFrame(rawData, frameStart, frameCount);
 				const frameValueOffset = this._frameFloatArray.length;
 				this._frameFloatArray.length += 1;
@@ -1655,7 +1672,7 @@ export class ObjectDataParser extends DataParser {
 	_parseDoubleValueFrame(rawData, frameStart, frameCount) {
 		let frameOffset = 0;
 		switch (this._frameValueType) {
-			case 0: {
+			case FrameValueType.Step: {
 				frameOffset = this._parseFrame(rawData, frameStart, frameCount);
 				this._frameArray.length += 2;
 				this._frameArray[frameOffset + 1] = ObjectDataParser._getNumber(
@@ -1671,7 +1688,7 @@ export class ObjectDataParser extends DataParser {
 				break;
 			}
 
-			case 1: {
+			case FrameValueType.Int: {
 				frameOffset = this._parseTweenFrame(rawData, frameStart, frameCount);
 				const frameValueOffset = this._frameIntArray.length;
 				this._frameIntArray.length += 2;
@@ -1686,7 +1703,7 @@ export class ObjectDataParser extends DataParser {
 				break;
 			}
 
-			case 2: {
+			case FrameValueType.Float: {
 				frameOffset = this._parseTweenFrame(rawData, frameStart, frameCount);
 				const frameValueOffset = this._frameFloatArray.length;
 				this._frameFloatArray.length += 2;
@@ -1704,7 +1721,6 @@ export class ObjectDataParser extends DataParser {
 	}
 
 	_parseActionFrame(frame, frameStart, frameCount) {
-		// tslint:disable-next-line:no-unused-expression
 		frameCount;
 
 		const frameOffset = this._frameArray.length;
@@ -1728,8 +1744,8 @@ export class ObjectDataParser extends DataParser {
 			const rawZOrder = rawData[DataParser.Z_ORDER];
 			if (rawZOrder.length > 0) {
 				const slotCount = this._armature.sortedSlots.length;
-				const unchanged = new Array<number>(slotCount - rawZOrder.length / 2);
-				const zOrders = new Array<number>(slotCount);
+				const unchanged = new Array(slotCount - rawZOrder.length / 2);
+				const zOrders = new Array(slotCount);
 
 				for (let i = 0; i < unchanged.length; ++i) {
 					unchanged[i] = 0;
@@ -1901,7 +1917,7 @@ export class ObjectDataParser extends DataParser {
 				DataParser.VALUE in rawData ? rawData[DataParser.VALUE] : rawData[DataParser.COLOR];
 			for (let k in rawColor) {
 				// Detects the presence of color.
-				// tslint:disable-next-line:no-unused-expression
+
 				k;
 				this._parseColorTransform(rawColor, this._helpColorTransform);
 				colorOffset = this._colorArray.length;
@@ -2377,7 +2393,6 @@ export class ObjectDataParser extends DataParser {
 	}
 
 	_parseArray(rawData) {
-		// tslint:disable-next-line:no-unused-expression
 		rawData;
 		this._intArray.length = 0;
 		this._floatArray.length = 0;
@@ -2587,15 +2602,11 @@ export class ObjectDataParser extends DataParser {
 	}
 
 	static _objectDataParserInstance = null;
+
 	/**
 	 * - Deprecated, please refer to {@link dragonBones.BaseFactory#parseDragonBonesData()}.
 	 * @deprecated
 	 * @language en_US
-	 */
-	/**
-	 * - 已废弃，请参考 {@link dragonBones.BaseFactory#parseDragonBonesData()}。
-	 * @deprecated
-	 * @language zh_CN
 	 */
 	static getInstance() {
 		if (ObjectDataParser._objectDataParserInstance === null) {
@@ -2605,6 +2616,7 @@ export class ObjectDataParser extends DataParser {
 		return ObjectDataParser._objectDataParserInstance;
 	}
 }
+
 /**
  * @private
  */

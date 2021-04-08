@@ -1,7 +1,13 @@
 import { BaseObject } from '../core/BaseObject';
 import { ActionType } from '../core/DragonBones';
 import { EventObject } from '../event/EventObject';
-import { DoubleValueTimelineState, MutilpleValueTimelineState, SingleValueTimelineState, TimelineState, TweenTimelineState } from './BaseTimelineState';
+import {
+	DoubleValueTimelineState,
+	MutilpleValueTimelineState,
+	SingleValueTimelineState,
+	TimelineState,
+	TweenTimelineState,
+} from './BaseTimelineState';
 
 /**
  * @internal
@@ -53,7 +59,7 @@ export class ActionTimelineState extends TimelineState {
 	_onUpdateFrame() {}
 
 	update(passedTime) {
-        // console.log(passedTime);
+        
 		const prevState = this.playState;
 		let prevPlayTimes = this.currentPlayTimes;
 		let prevTime = this.currentTime;
