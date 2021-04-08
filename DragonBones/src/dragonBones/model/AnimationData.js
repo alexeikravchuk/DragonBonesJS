@@ -7,9 +7,7 @@ import { AnimationBlendType, TimelineType } from '../core/DragonBones';
  * @language en_US
  */
 export class AnimationData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.AnimationData]';
-	}
+
 	/**
 	 * - FrameIntArray.
 	 * @internal
@@ -337,9 +335,6 @@ export class AnimationData extends BaseObject {
  * @private
  */
 export class TimelineData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.TimelineData]';
-	}
 
 	type;
 	offset; // TimelineArray.
@@ -356,9 +351,7 @@ export class TimelineData extends BaseObject {
  * @internal
  */
 export class AnimationTimelineData extends TimelineData {
-	static toString() {
-		return '[class dragonBones.AnimationTimelineData]';
-	}
+
 
 	x;
 	y;

@@ -6,9 +6,6 @@ import { BaseObject } from '../core/BaseObject';
  * @language en_US
  */
 export class SkinData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.SkinData]';
-	}
 
 	/**
 	 * - The skin name.

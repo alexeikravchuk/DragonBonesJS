@@ -7,9 +7,6 @@ import { ActionType } from '../core/DragonBones';
  * @language en_US
  */
 export class UserData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.UserData]';
-	}
 
 	/**
 	 * - The custom int numbers.
@@ -92,9 +89,6 @@ export class UserData extends BaseObject {
  * @private
  */
 export class ActionData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.ActionData]';
-	}
 
 	type;
 	name; // Frame event name | Sound event name | Animation name

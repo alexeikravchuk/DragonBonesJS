@@ -64,9 +64,6 @@ export class DisplayData extends BaseObject {
  * @private
  */
 export class ImageDisplayData extends DisplayData {
-	static toString() {
-		return '[class dragonBones.ImageDisplayData]';
-	}
 
 	pivot = new Point();
 	texture;
@@ -84,9 +81,6 @@ export class ImageDisplayData extends DisplayData {
  * @private
  */
 export class ArmatureDisplayData extends DisplayData {
-	static toString() {
-		return '[class dragonBones.ArmatureDisplayData]';
-	}
 
 	inheritAnimation;
 	actions = [];
@@ -116,9 +110,6 @@ export class ArmatureDisplayData extends DisplayData {
  * @private
  */
 export class MeshDisplayData extends DisplayData {
-	static toString() {
-		return '[class dragonBones.MeshDisplayData]';
-	}
 
 	geometry = new GeometryData();
 	texture;
@@ -136,9 +127,7 @@ export class MeshDisplayData extends DisplayData {
  * @private
  */
 export class BoundingBoxDisplayData extends DisplayData {
-	static toString() {
-		return '[class dragonBones.BoundingBoxDisplayData]';
-	}
+
 
 	boundingBox = null; // Initial value.
 
@@ -158,9 +147,7 @@ export class BoundingBoxDisplayData extends DisplayData {
  * @private
  */
 export class PathDisplayData extends DisplayData {
-	static toString() {
-		return '[class dragonBones.PathDisplayData]';
-	}
+
 	closed;
 	constantSpeed;
 	geometry = new GeometryData();
@@ -181,9 +168,7 @@ export class PathDisplayData extends DisplayData {
  * @private
  */
 export class WeightData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.WeightData]';
-	}
+
 
 	count;
 	offset;

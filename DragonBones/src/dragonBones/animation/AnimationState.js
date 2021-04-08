@@ -26,9 +26,7 @@ import {
      * @language en_US
      */
 export class AnimationState extends BaseObject {
-	static toString() {
-		return '[class dragonBones.AnimationState]';
-	}
+	
 	/**
 	 * @private
 	 */
@@ -1448,10 +1446,6 @@ export class BlendState extends BaseObject {
 	static SLOT_DEFORM = 'slotDeform';
 	static SLOT_ALPHA = 'slotAlpha';
 	static SLOT_Z_INDEX = 'slotZIndex';
-
-	static toString() {
-		return '[class dragonBones.BlendState]';
-	}
 
 	dirty;
 	layer;

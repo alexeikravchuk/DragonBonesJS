@@ -10,9 +10,6 @@ import { TextureAtlasData, TextureData } from '../../../../../DragonBones/src/dr
  */
 
 export class PixiTextureAtlasData extends TextureAtlasData {
-	static toString() {
-		return '[class dragonBones.PixiTextureAtlasData]';
-	}
 
 	_renderTexture = null; // Initial value.
 
@@ -81,9 +78,6 @@ export class PixiTextureAtlasData extends TextureAtlasData {
  * @internal
  */
 export class PixiTextureData extends TextureData {
-	static toString() {
-		return '[class dragonBones.PixiTextureData]';
-	}
 
 	renderTexture = null; // Initial value.
 

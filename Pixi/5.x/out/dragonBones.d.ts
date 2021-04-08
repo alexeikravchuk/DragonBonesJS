@@ -336,7 +336,6 @@ declare namespace dragonBones {
         private static readonly _maxCountMap;
         private static readonly _poolsMap;
         private static _returnObject;
-        static toString(): string;
         /**
          * - Set the maximum cache count of the specify object pool.
          * @param objectConstructor - The specify class. (Set all object pools max cache count if not set)
@@ -733,7 +732,6 @@ declare namespace dragonBones {
          * @private
          */
         constructor(x?: number, y?: number, skew?: number, rotation?: number, scaleX?: number, scaleY?: number);
-        toString(): string;
         /**
          * @private
          */

@@ -5,9 +5,7 @@ import { Bone } from './Bone';
  * @internal
  */
 export class Surface extends Bone {
-	static toString() {
-		return '[class dragonBones.Surface]';
-	}
+	
 
 	_dX;
 	_dY;

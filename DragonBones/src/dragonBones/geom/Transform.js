@@ -110,23 +110,6 @@ export class Transform {
 		this.scaleY = scaleY;
 	}
 
-	toString() {
-		return (
-			'[object dragonBones.Transform] x:' +
-			this.x +
-			' y:' +
-			this.y +
-			' skewX:' +
-			(this.skew * 180.0) / Math.PI +
-			' skewY:' +
-			(this.rotation * 180.0) / Math.PI +
-			' scaleX:' +
-			this.scaleX +
-			' scaleY:' +
-			this.scaleY
-		);
-	}
-
 	/**
 	 * @private
 	 */

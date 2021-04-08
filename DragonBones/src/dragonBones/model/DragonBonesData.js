@@ -9,9 +9,6 @@ import { BaseObject } from '../core/BaseObject';
  */
 
 export class DragonBonesData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.DragonBonesData]';
-	}
 
 	/**
 	 * @private

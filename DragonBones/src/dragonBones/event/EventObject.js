@@ -96,10 +96,6 @@ export class EventObject extends BaseObject {
 		}
 	}
 
-	static toString() {
-		return '[class dragonBones.EventObject]';
-	}
-
 	/**
 	 * - If is a frame event, the value is used to describe the time that the event was in the animation timeline. (In seconds)
 	 * @version DragonBones 4.5

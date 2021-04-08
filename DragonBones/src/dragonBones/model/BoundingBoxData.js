@@ -76,9 +76,7 @@ const OutCode = {
  * @language en_US
  */
 export class RectangleBoundingBoxData extends BoundingBoxData {
-	static toString() {
-		return '[class dragonBones.RectangleBoundingBoxData]';
-	}
+
 	/**
 	 * - Compute the bit code for a point (x, y) using the clip rectangle
 	 */
@@ -316,9 +314,6 @@ export class RectangleBoundingBoxData extends BoundingBoxData {
  * @language zh_CN
  */
 export class EllipseBoundingBoxData extends BoundingBoxData {
-	static toString() {
-		return '[class dragonBones.EllipseData]';
-	}
 	/**
 	 * @private
 	 */
@@ -490,9 +485,6 @@ export class EllipseBoundingBoxData extends BoundingBoxData {
  * @language en_US
  */
 export class PolygonBoundingBoxData extends BoundingBoxData {
-	static toString() {
-		return '[class dragonBones.PolygonBoundingBoxData]';
-	}
 	/**
 	 * @private
 	 */

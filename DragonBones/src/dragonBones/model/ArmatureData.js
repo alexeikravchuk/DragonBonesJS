@@ -11,9 +11,6 @@ import { GeometryData } from './DisplayData';
  * @language en_US
  */
 export class ArmatureData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.ArmatureData]';
-	}
 
 	/**
 	 * @private
@@ -450,9 +447,7 @@ export class ArmatureData extends BaseObject {
  * @language en_US
  */
 export class BoneData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.BoneData]';
-	}
+
 
 	/**
 	 * @private
@@ -538,9 +533,7 @@ export class BoneData extends BaseObject {
  * @internal
  */
 export class SurfaceData extends BoneData {
-	static toString() {
-		return '[class dragonBones.SurfaceData]';
-	}
+
 
 	segmentX;
 	segmentY;
@@ -572,10 +565,6 @@ export class SlotData extends BaseObject {
 	 */
 	static createColor() {
 		return new ColorTransform();
-	}
-
-	static toString() {
-		return '[class dragonBones.SlotData]';
 	}
 	
 	/**

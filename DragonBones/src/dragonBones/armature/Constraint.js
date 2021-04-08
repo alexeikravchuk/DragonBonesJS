@@ -51,9 +51,7 @@ export class Constraint extends BaseObject {
  * @internal
  */
 export class IKConstraint extends Constraint {
-	static toString() {
-		return '[class dragonBones.IKConstraint]';
-	}
+	
 
 	//  _scaleEnabled ; // TODO
 	/**
@@ -240,9 +238,7 @@ export class PathConstraint extends Constraint {
 	_pathGlobalVertices = [];
 	_segments = [10];
 
-	static toString() {
-		return '[class dragonBones.PathConstraint]';
-	}
+	
 
 	_onClear() {
 		super._onClear();

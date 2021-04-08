@@ -4,9 +4,6 @@ import { BaseObject } from '../core/BaseObject';
  * @private
  */
 export class CanvasData extends BaseObject {
-	static toString() {
-		return '[class dragonBones.CanvasData]';
-	}
 
 	hasBackground;
 	color;

@@ -11,9 +11,7 @@ import { BaseObject } from '../core/BaseObject';
  * @language en_US
  */
 export class Armature extends BaseObject /* implements IAnimatable */ {
-	static toString() {
-		return '[class dragonBones.Armature]';
-	}
+	
 
 	static _onSortSlots(a, b) {
 		return a._zIndex * 1000 + a._zOrder > b._zIndex * 1000 + b._zOrder ? 1 : -1;

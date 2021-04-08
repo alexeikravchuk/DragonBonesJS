@@ -13,9 +13,7 @@ import { TransformObject } from './TransformObject';
  * @language en_US
  */
 export class Bone extends TransformObject {
-	static toString() {
-		return '[class dragonBones.Bone]';
-	}
+	
 	/**
 	 * - The offset mode.
 	 * @see #offset

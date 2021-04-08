@@ -76,23 +76,6 @@ export class Matrix {
 		this._ty = value;
 	}
 
-	toString() {
-		return (
-			'[object dragonBones.Matrix] a:' +
-			this.a +
-			' b:' +
-			this.b +
-			' c:' +
-			this.c +
-			' d:' +
-			this.d +
-			' tx:' +
-			this.tx +
-			' ty:' +
-			this.ty
-		);
-	}
-
 	/**
 	 * @private
 	 */

@@ -10,9 +10,7 @@ import { AnimationFadeOutMode, TweenType } from '../core/DragonBones';
  * @language en_US
  */
 export class AnimationConfig extends BaseObject {
-	static toString() {
-		return '[class dragonBones.AnimationConfig]';
-	}
+
 	
 	/**
 	 * @private

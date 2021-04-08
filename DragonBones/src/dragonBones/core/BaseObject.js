@@ -28,10 +28,6 @@ export class BaseObject {
 		}
 	}
 
-	static toString() {
-		throw new Error();
-	}
-
 	/**
 	 * - Set the maximum cache count of the specify object pool.
 	 * @param objectConstructor - The specify class. (Set all object pools max cache count if not set)

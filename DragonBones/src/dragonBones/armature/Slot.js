@@ -9,9 +9,7 @@ import { TransformObject } from './TransformObject';
  * @private
  */
  export class DisplayFrame extends BaseObject {
-	static toString() {
-		return "[class dragonBones.DisplayFrame]";
-	}
+	
 
 	rawDisplayData;
 	displayData;

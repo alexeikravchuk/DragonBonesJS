@@ -13,9 +13,6 @@ import {
  * @internal
  */
 export class ActionTimelineState extends TimelineState {
-	static toString() {
-		return '[class dragonBones.ActionTimelineState]';
-	}
 
 	_onCrossFrame(frameIndex) {
 		const eventDispatcher = this._armature.eventDispatcher;
@@ -294,9 +291,7 @@ export class ActionTimelineState extends TimelineState {
  * @internal
  */
 export class ZOrderTimelineState extends TimelineState {
-	static toString() {
-		return '[class dragonBones.ZOrderTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		if (this.playState >= 0) {
@@ -315,9 +310,7 @@ export class ZOrderTimelineState extends TimelineState {
  * @internal
  */
 export class BoneAllTimelineState extends MutilpleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.BoneAllTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
@@ -383,9 +376,7 @@ export class BoneAllTimelineState extends MutilpleValueTimelineState {
  * @internal
  */
 export class BoneTranslateTimelineState extends DoubleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.BoneTranslateTimelineState]';
-	}
+	
 
 	init(armature, animationState, timelineData) {
 		super.init(armature, animationState, timelineData);
@@ -422,9 +413,7 @@ export class BoneTranslateTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class BoneRotateTimelineState extends DoubleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.BoneRotateTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
@@ -475,9 +464,7 @@ export class BoneRotateTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class BoneScaleTimelineState extends DoubleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.BoneScaleTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
@@ -523,9 +510,7 @@ export class BoneScaleTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class SurfaceTimelineState extends MutilpleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.SurfaceTimelineState]';
-	}
+	
 
 	_deformCount;
 	_deformOffset;
@@ -609,9 +594,7 @@ export class SurfaceTimelineState extends MutilpleValueTimelineState {
  * @internal
  */
 export class AlphaTimelineState extends SingleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.AlphaTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
@@ -654,9 +637,7 @@ export class AlphaTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class SlotDisplayTimelineState extends TimelineState {
-	static toString() {
-		return '[class dragonBones.SlotDisplayTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		if (this.playState >= 0) {
@@ -678,9 +659,7 @@ export class SlotDisplayTimelineState extends TimelineState {
  * @internal
  */
 export class SlotColorTimelineState extends TweenTimelineState {
-	static toString() {
-		return '[class dragonBones.SlotColorTimelineState]';
-	}
+	
 
 	_current = [0, 0, 0, 0, 0, 0, 0, 0];
 	_difference = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -833,9 +812,7 @@ export class SlotColorTimelineState extends TweenTimelineState {
  * @internal
  */
 export class SlotZIndexTimelineState extends SingleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.SlotZIndexTimelineState]';
-	}
+	
 
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
@@ -877,9 +854,7 @@ export class SlotZIndexTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class DeformTimelineState extends MutilpleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.DeformTimelineState]';
-	}
+	
 
 	displayFrame;
 
@@ -976,9 +951,7 @@ export class DeformTimelineState extends MutilpleValueTimelineState {
  * @internal
  */
 export class IKConstraintTimelineState extends DoubleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.IKConstraintTimelineState]';
-	}
+	
 
 	_onUpdateFrame() {
 		super._onUpdateFrame();
@@ -1010,9 +983,7 @@ export class IKConstraintTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class AnimationProgressTimelineState extends SingleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.AnimationProgressTimelineState]';
-	}
+	
 
 	_onUpdateFrame() {
 		super._onUpdateFrame();
@@ -1037,9 +1008,7 @@ export class AnimationProgressTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class AnimationWeightTimelineState extends SingleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.AnimationWeightTimelineState]';
-	}
+	
 
 	_onUpdateFrame() {
 		super._onUpdateFrame();
@@ -1065,9 +1034,7 @@ export class AnimationWeightTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class AnimationParametersTimelineState extends DoubleValueTimelineState {
-	static toString() {
-		return '[class dragonBones.AnimationParametersTimelineState]';
-	}
+	
 
 	_onUpdateFrame() {
 		super._onUpdateFrame();

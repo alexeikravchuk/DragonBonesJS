@@ -1,4 +1,8 @@
 import { BaseObject } from '../core/BaseObject';
+import { BinaryOffset } from '../core/DragonBones';
+import { AnimationData, TimelineData } from '../model/AnimationData';
+import { WeightData } from '../model/DisplayData';
+import { DataParser } from './DataParser';
 import { ObjectDataParser } from './ObjectDataParser';
 
 /**

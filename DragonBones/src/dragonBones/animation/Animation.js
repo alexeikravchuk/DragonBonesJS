@@ -11,10 +11,6 @@ import { AnimationState, BlendState } from './AnimationState';
  * @language en_US
  */
 export class Animation extends BaseObject {
-	static toString() {
-		return '[class dragonBones.Animation]';
-	}
-
 	/**
 	 * - The play speed of all animations. [0: Stop, (0~1): Slow, 1: Normal, (1~N): Fast]
 	 * @default 1.0

@@ -10,9 +10,6 @@ import { BinaryOffset, BlendMode, BoneType } from '../../../../../DragonBones/sr
  * @language en_US
  */
 export class PixiSlot extends Slot {
-	static toString() {
-		return '[class dragonBones.PixiSlot]';
-	}
 
 	_textureScale;
 	_renderDisplay;

@@ -26,9 +26,6 @@ export class ConstraintData extends BaseObject {
  * @internal
  */
 export class IKConstraintData extends ConstraintData {
-	static toString() {
-		return '[class dragonBones.IKConstraintData]';
-	}
 
 	scaleEnabled;
 	bendPositive;
@@ -47,9 +44,6 @@ export class IKConstraintData extends ConstraintData {
  * @internal
  */
 export class PathConstraintData extends ConstraintData {
-	static toString() {
-		return '[class dragonBones.PathConstraintData]';
-	}
 
 	pathSlot;
 	pathDisplayData;
