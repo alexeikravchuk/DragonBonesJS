@@ -77,231 +77,231 @@ const OutCode = {
  */
 export class RectangleBoundingBoxData extends BoundingBoxData {
 
-	/**
-	 * - Compute the bit code for a point (x, y) using the clip rectangle
-	 */
-	static _computeOutCode(x, y, xMin, yMin, xMax, yMax) {
-		let code = OutCode.InSide; // initialised as being inside of [[clip window]]
+	// /**
+	//  * - Compute the bit code for a point (x, y) using the clip rectangle
+	//  */
+	// static _computeOutCode(x, y, xMin, yMin, xMax, yMax) {
+	// 	let code = OutCode.InSide; // initialised as being inside of [[clip window]]
 
-		if (x < xMin) {
-			// to the left of clip window
-			code = OutCode.Left;
-		} else if (x > xMax) {
-			// to the right of clip window
-			code = OutCode.Right;
-		}
+	// 	if (x < xMin) {
+	// 		// to the left of clip window
+	// 		code = OutCode.Left;
+	// 	} else if (x > xMax) {
+	// 		// to the right of clip window
+	// 		code = OutCode.Right;
+	// 	}
 
-		if (y < yMin) {
-			// below the clip window
-			code = OutCode.Top;
-		} else if (y > yMax) {
-			// above the clip window
-			code = OutCode.Bottom;
-		}
+	// 	if (y < yMin) {
+	// 		// below the clip window
+	// 		code = OutCode.Top;
+	// 	} else if (y > yMax) {
+	// 		// above the clip window
+	// 		code = OutCode.Bottom;
+	// 	}
 
-		return code;
-	}
-	/**
-	 * @private
-	 */
-	static rectangleIntersectsSegment(
-		xA,
-		yA,
-		xB,
-		yB,
-		xMin,
-		yMin,
-		xMax,
-		yMax,
-		intersectionPointA = null,
-		intersectionPointB = null,
-		normalRadians = null
-	) {
-		const inSideA = xA > xMin && xA < xMax && yA > yMin && yA < yMax;
-		const inSideB = xB > xMin && xB < xMax && yB > yMin && yB < yMax;
+	// 	return code;
+	// }
+	// /**
+	//  * @private
+	//  */
+	// static rectangleIntersectsSegment(
+	// 	xA,
+	// 	yA,
+	// 	xB,
+	// 	yB,
+	// 	xMin,
+	// 	yMin,
+	// 	xMax,
+	// 	yMax,
+	// 	intersectionPointA = null,
+	// 	intersectionPointB = null,
+	// 	normalRadians = null
+	// ) {
+	// 	const inSideA = xA > xMin && xA < xMax && yA > yMin && yA < yMax;
+	// 	const inSideB = xB > xMin && xB < xMax && yB > yMin && yB < yMax;
 
-		if (inSideA && inSideB) {
-			return -1;
-		}
+	// 	if (inSideA && inSideB) {
+	// 		return -1;
+	// 	}
 
-		let intersectionCount = 0;
-		let outcode0 = RectangleBoundingBoxData._computeOutCode(xA, yA, xMin, yMin, xMax, yMax);
-		let outcode1 = RectangleBoundingBoxData._computeOutCode(xB, yB, xMin, yMin, xMax, yMax);
+	// 	let intersectionCount = 0;
+	// 	let outcode0 = RectangleBoundingBoxData._computeOutCode(xA, yA, xMin, yMin, xMax, yMax);
+	// 	let outcode1 = RectangleBoundingBoxData._computeOutCode(xB, yB, xMin, yMin, xMax, yMax);
 
-		while (true) {
-			if ((outcode0 | outcode1) === 0) {
-				// Bitwise OR is 0. Trivially accept and get out of loop
-				intersectionCount = 2;
-				break;
-			} else if ((outcode0 & outcode1) !== 0) {
-				// Bitwise AND is not 0. Trivially reject and get out of loop
-				break;
-			}
+	// 	while (true) {
+	// 		if ((outcode0 | outcode1) === 0) {
+	// 			// Bitwise OR is 0. Trivially accept and get out of loop
+	// 			intersectionCount = 2;
+	// 			break;
+	// 		} else if ((outcode0 & outcode1) !== 0) {
+	// 			// Bitwise AND is not 0. Trivially reject and get out of loop
+	// 			break;
+	// 		}
 
-			// failed both tests, so calculate the line segment to clip
-			// from an outside point to an intersection with clip edge
-			let x = 0.0;
-			let y = 0.0;
-			let normalRadian = 0.0;
+	// 		// failed both tests, so calculate the line segment to clip
+	// 		// from an outside point to an intersection with clip edge
+	// 		let x = 0.0;
+	// 		let y = 0.0;
+	// 		let normalRadian = 0.0;
 
-			// At least one endpoint is outside the clip rectangle; pick it.
-			const outcodeOut = outcode0 !== 0 ? outcode0 : outcode1;
+	// 		// At least one endpoint is outside the clip rectangle; pick it.
+	// 		const outcodeOut = outcode0 !== 0 ? outcode0 : outcode1;
 
-			// Now find the intersection point;
-			if ((outcodeOut & OutCode.Top) !== 0) {
-				// point is above the clip rectangle
-				x = xA + ((xB - xA) * (yMin - yA)) / (yB - yA);
-				y = yMin;
+	// 		// Now find the intersection point;
+	// 		if ((outcodeOut & OutCode.Top) !== 0) {
+	// 			// point is above the clip rectangle
+	// 			x = xA + ((xB - xA) * (yMin - yA)) / (yB - yA);
+	// 			y = yMin;
 
-				if (normalRadians !== null) {
-					normalRadian = -Math.PI * 0.5;
-				}
-			} else if ((outcodeOut & OutCode.Bottom) !== 0) {
-				// point is below the clip rectangle
-				x = xA + ((xB - xA) * (yMax - yA)) / (yB - yA);
-				y = yMax;
+	// 			if (normalRadians !== null) {
+	// 				normalRadian = -Math.PI * 0.5;
+	// 			}
+	// 		} else if ((outcodeOut & OutCode.Bottom) !== 0) {
+	// 			// point is below the clip rectangle
+	// 			x = xA + ((xB - xA) * (yMax - yA)) / (yB - yA);
+	// 			y = yMax;
 
-				if (normalRadians !== null) {
-					normalRadian = Math.PI * 0.5;
-				}
-			} else if ((outcodeOut & OutCode.Right) !== 0) {
-				// point is to the right of clip rectangle
-				y = yA + ((yB - yA) * (xMax - xA)) / (xB - xA);
-				x = xMax;
+	// 			if (normalRadians !== null) {
+	// 				normalRadian = Math.PI * 0.5;
+	// 			}
+	// 		} else if ((outcodeOut & OutCode.Right) !== 0) {
+	// 			// point is to the right of clip rectangle
+	// 			y = yA + ((yB - yA) * (xMax - xA)) / (xB - xA);
+	// 			x = xMax;
 
-				if (normalRadians !== null) {
-					normalRadian = 0;
-				}
-			} else if ((outcodeOut & OutCode.Left) !== 0) {
-				// point is to the left of clip rectangle
-				y = yA + ((yB - yA) * (xMin - xA)) / (xB - xA);
-				x = xMin;
+	// 			if (normalRadians !== null) {
+	// 				normalRadian = 0;
+	// 			}
+	// 		} else if ((outcodeOut & OutCode.Left) !== 0) {
+	// 			// point is to the left of clip rectangle
+	// 			y = yA + ((yB - yA) * (xMin - xA)) / (xB - xA);
+	// 			x = xMin;
 
-				if (normalRadians !== null) {
-					normalRadian = Math.PI;
-				}
-			}
+	// 			if (normalRadians !== null) {
+	// 				normalRadian = Math.PI;
+	// 			}
+	// 		}
 
-			// Now we move outside point to intersection point to clip
-			// and get ready for next pass.
-			if (outcodeOut === outcode0) {
-				xA = x;
-				yA = y;
-				outcode0 = RectangleBoundingBoxData._computeOutCode(xA, yA, xMin, yMin, xMax, yMax);
+	// 		// Now we move outside point to intersection point to clip
+	// 		// and get ready for next pass.
+	// 		if (outcodeOut === outcode0) {
+	// 			xA = x;
+	// 			yA = y;
+	// 			outcode0 = RectangleBoundingBoxData._computeOutCode(xA, yA, xMin, yMin, xMax, yMax);
 
-				if (normalRadians !== null) {
-					normalRadians.x = normalRadian;
-				}
-			} else {
-				xB = x;
-				yB = y;
-				outcode1 = RectangleBoundingBoxData._computeOutCode(xB, yB, xMin, yMin, xMax, yMax);
+	// 			if (normalRadians !== null) {
+	// 				normalRadians.x = normalRadian;
+	// 			}
+	// 		} else {
+	// 			xB = x;
+	// 			yB = y;
+	// 			outcode1 = RectangleBoundingBoxData._computeOutCode(xB, yB, xMin, yMin, xMax, yMax);
 
-				if (normalRadians !== null) {
-					normalRadians.y = normalRadian;
-				}
-			}
-		}
+	// 			if (normalRadians !== null) {
+	// 				normalRadians.y = normalRadian;
+	// 			}
+	// 		}
+	// 	}
 
-		if (intersectionCount) {
-			if (inSideA) {
-				intersectionCount = 2; // 10
+	// 	if (intersectionCount) {
+	// 		if (inSideA) {
+	// 			intersectionCount = 2; // 10
 
-				if (intersectionPointA !== null) {
-					intersectionPointA.x = xB;
-					intersectionPointA.y = yB;
-				}
+	// 			if (intersectionPointA !== null) {
+	// 				intersectionPointA.x = xB;
+	// 				intersectionPointA.y = yB;
+	// 			}
 
-				if (intersectionPointB !== null) {
-					intersectionPointB.x = xB;
-					intersectionPointB.y = xB;
-				}
+	// 			if (intersectionPointB !== null) {
+	// 				intersectionPointB.x = xB;
+	// 				intersectionPointB.y = xB;
+	// 			}
 
-				if (normalRadians !== null) {
-					normalRadians.x = normalRadians.y + Math.PI;
-				}
-			} else if (inSideB) {
-				intersectionCount = 1; // 01
+	// 			if (normalRadians !== null) {
+	// 				normalRadians.x = normalRadians.y + Math.PI;
+	// 			}
+	// 		} else if (inSideB) {
+	// 			intersectionCount = 1; // 01
 
-				if (intersectionPointA !== null) {
-					intersectionPointA.x = xA;
-					intersectionPointA.y = yA;
-				}
+	// 			if (intersectionPointA !== null) {
+	// 				intersectionPointA.x = xA;
+	// 				intersectionPointA.y = yA;
+	// 			}
 
-				if (intersectionPointB !== null) {
-					intersectionPointB.x = xA;
-					intersectionPointB.y = yA;
-				}
+	// 			if (intersectionPointB !== null) {
+	// 				intersectionPointB.x = xA;
+	// 				intersectionPointB.y = yA;
+	// 			}
 
-				if (normalRadians !== null) {
-					normalRadians.y = normalRadians.x + Math.PI;
-				}
-			} else {
-				intersectionCount = 3; // 11
-				if (intersectionPointA !== null) {
-					intersectionPointA.x = xA;
-					intersectionPointA.y = yA;
-				}
+	// 			if (normalRadians !== null) {
+	// 				normalRadians.y = normalRadians.x + Math.PI;
+	// 			}
+	// 		} else {
+	// 			intersectionCount = 3; // 11
+	// 			if (intersectionPointA !== null) {
+	// 				intersectionPointA.x = xA;
+	// 				intersectionPointA.y = yA;
+	// 			}
 
-				if (intersectionPointB !== null) {
-					intersectionPointB.x = xB;
-					intersectionPointB.y = yB;
-				}
-			}
-		}
+	// 			if (intersectionPointB !== null) {
+	// 				intersectionPointB.x = xB;
+	// 				intersectionPointB.y = yB;
+	// 			}
+	// 		}
+	// 	}
 
-		return intersectionCount;
-	}
+	// 	return intersectionCount;
+	// }
 
-	_onClear() {
-		super._onClear();
+	// _onClear() {
+	// 	super._onClear();
 
-		this.type = BoundingBoxType.Rectangle;
-	}
-	/**
-	 * @inheritDoc
-	 */
-	containsPoint(pX, pY) {
-		const widthH = this.width * 0.5;
-		if (pX >= -widthH && pX <= widthH) {
-			const heightH = this.height * 0.5;
-			if (pY >= -heightH && pY <= heightH) {
-				return true;
-			}
-		}
+	// 	this.type = BoundingBoxType.Rectangle;
+	// }
+	// /**
+	//  * @inheritDoc
+	//  */
+	// containsPoint(pX, pY) {
+	// 	const widthH = this.width * 0.5;
+	// 	if (pX >= -widthH && pX <= widthH) {
+	// 		const heightH = this.height * 0.5;
+	// 		if (pY >= -heightH && pY <= heightH) {
+	// 			return true;
+	// 		}
+	// 	}
 
-		return false;
-	}
-	/**
-	 * @inheritDoc
-	 */
-	intersectsSegment(
-		xA,
-		yA,
-		xB,
-		yB,
-		intersectionPointA = null,
-		intersectionPointB = null,
-		normalRadians = null
-	) {
-		const widthH = this.width * 0.5;
-		const heightH = this.height * 0.5;
-		const intersectionCount = RectangleBoundingBoxData.rectangleIntersectsSegment(
-			xA,
-			yA,
-			xB,
-			yB,
-			-widthH,
-			-heightH,
-			widthH,
-			heightH,
-			intersectionPointA,
-			intersectionPointB,
-			normalRadians
-		);
+	// 	return false;
+	// }
+	// /**
+	//  * @inheritDoc
+	//  */
+	// intersectsSegment(
+	// 	xA,
+	// 	yA,
+	// 	xB,
+	// 	yB,
+	// 	intersectionPointA = null,
+	// 	intersectionPointB = null,
+	// 	normalRadians = null
+	// ) {
+	// 	const widthH = this.width * 0.5;
+	// 	const heightH = this.height * 0.5;
+	// 	const intersectionCount = RectangleBoundingBoxData.rectangleIntersectsSegment(
+	// 		xA,
+	// 		yA,
+	// 		xB,
+	// 		yB,
+	// 		-widthH,
+	// 		-heightH,
+	// 		widthH,
+	// 		heightH,
+	// 		intersectionPointA,
+	// 		intersectionPointB,
+	// 		normalRadians
+	// 	);
 
-		return intersectionCount;
-	}
+	// 	return intersectionCount;
+	// }
 }
 /**
  * - The ellipse bounding box data.

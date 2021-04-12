@@ -1,8 +1,6 @@
 import { Texture } from '../../../../../../pixi.js/packages/core/src/textures/Texture';
 import { SimpleMesh } from '../../../../../../pixi.js/packages/mesh-extras/src/SimpleMesh';
-import { settings } from '../../../../../../pixi.js/packages/settings/src/settings';
 import { Sprite } from '../../../../../../pixi.js/packages/sprite/src/Sprite';
-import { Ticker } from '../../../../../../pixi.js/packages/ticker/src/Ticker';
 import { Armature } from '../../../../../DragonBones/src/dragonBones/armature/Armature';
 import { BaseObject } from '../../../../../DragonBones/src/dragonBones/core/BaseObject';
 import { DragonBones } from '../../../../../DragonBones/src/dragonBones/core/DragonBones';
@@ -20,40 +18,34 @@ import { PixiTextureAtlasData } from './PixiTextureAtlasData';
 export class PixiFactory extends BaseFactory {
 	static _dragonBonesInstance = null;
 	static _factory = null;
-	static _clockHandler(passedTime) {
-		this._dragonBonesInstance.advanceTime((passedTime / settings.TARGET_FPMS) * 0.001);
+
+	static update(dt) {
+		this._dragonBonesInstance.advanceTime(dt);
 	}
 
 	/*
-	 * `passedTime` is elapsed time, specified in seconds.
+	 * `passedTime` is delta time, specified in seconds.
 	 */
-
 	static advanceTime(passedTime) {
 		this._dragonBonesInstance.advanceTime(passedTime);
 	}
 
-	/*
-	 * whether use `PIXI.Ticker.shared`
-	 */
-	static useSharedTicker = true;
-
-	/**
+		/**
 	 * - A global factory instance that can be used directly.
 	 * @version DragonBones 4.7
 	 * @language en_US
 	 */
-
 	static get factory() {
 		if (PixiFactory._factory === null) {
-			PixiFactory._factory = new PixiFactory(null, PixiFactory.useSharedTicker);
+			PixiFactory._factory = new PixiFactory(null);
 		}
 
 		return PixiFactory._factory;
 	}
 
-	static newInstance(useSharedTicker = true) {
+	static newInstance() {
 		if (PixiFactory._factory === null) {
-			PixiFactory._factory = new PixiFactory(null, useSharedTicker);
+			PixiFactory._factory = new PixiFactory(null);
 		}
 
 		return PixiFactory._factory;
@@ -63,15 +55,12 @@ export class PixiFactory extends BaseFactory {
 	 * @inheritDoc
 	 */
 
-	constructor(dataParser, useSharedTicker = true) {
+	constructor(dataParser) {
 		super(dataParser);
 
 		if (PixiFactory._dragonBonesInstance === null) {
 			const eventManager = new PixiArmatureDisplay(Texture.EMPTY);
 			PixiFactory._dragonBonesInstance = new DragonBones(eventManager);
-			if (useSharedTicker) {
-				Ticker.shared.add(PixiFactory._clockHandler, PixiFactory);
-			}
 		}
 
 		this._dragonBones = PixiFactory._dragonBonesInstance;
@@ -124,7 +113,6 @@ export class PixiFactory extends BaseFactory {
 	 * </pre>
 	 * @language en_US
 	 */
-
 	buildArmatureDisplay(armatureName, dragonBonesName = '', skinName = '', textureAtlasName = '') {
 		const armature = this.buildArmature(
 			armatureName,
@@ -148,7 +136,6 @@ export class PixiFactory extends BaseFactory {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-
 	getTextureDisplay(textureName, textureAtlasName = null) {
 		const textureData = this._getTextureData(
 			textureAtlasName !== null ? textureAtlasName : '',
@@ -167,7 +154,6 @@ export class PixiFactory extends BaseFactory {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-
 	get soundEventManager() {
 		return this._dragonBones.eventManager;
 	}

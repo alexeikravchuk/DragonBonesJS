@@ -8,16 +8,14 @@ import { TransformObject } from './TransformObject';
 /**
  * @private
  */
- export class DisplayFrame extends BaseObject {
-	
-
+export class DisplayFrame extends BaseObject {
 	rawDisplayData;
 	displayData;
 	textureData;
-	display ;
+	display;
 	deformVertices = [];
 
- _onClear(){
+	_onClear() {
 		this.rawDisplayData = null;
 		this.displayData = null;
 		this.textureData = null;
@@ -25,7 +23,7 @@ import { TransformObject } from './TransformObject';
 		this.deformVertices.length = 0;
 	}
 
-	updateDeformVertices(){
+	updateDeformVertices() {
 		if (this.rawDisplayData === null || this.deformVertices.length !== 0) {
 			return;
 		}
@@ -33,20 +31,18 @@ import { TransformObject } from './TransformObject';
 		let rawGeometryData;
 		if (this.rawDisplayData.type === DisplayType.Mesh) {
 			rawGeometryData = this.rawDisplayData.geometry;
-		}
-		else if (this.rawDisplayData.type === DisplayType.Path) {
+		} else if (this.rawDisplayData.type === DisplayType.Path) {
 			rawGeometryData = this.rawDisplayData.geometry;
-		}
-		else {
+		} else {
 			return;
 		}
 
 		let vertexCount = 0;
 		if (rawGeometryData.weight !== null) {
 			vertexCount = rawGeometryData.weight.count * 2;
-		}
-		else {
-			vertexCount = rawGeometryData.data.intArray[rawGeometryData.offset + BinaryOffset.GeometryVertexCount] * 2;
+		} else {
+			vertexCount =
+				rawGeometryData.data.intArray[rawGeometryData.offset + BinaryOffset.GeometryVertexCount] * 2;
 		}
 
 		this.deformVertices.length = vertexCount;
@@ -58,28 +54,28 @@ import { TransformObject } from './TransformObject';
 	getGeometryData() {
 		if (this.displayData !== null) {
 			if (this.displayData.type === DisplayType.Mesh) {
-				return (this.displayData).geometry;
+				return this.displayData.geometry;
 			}
 
 			if (this.displayData.type === DisplayType.Path) {
-				return (this.displayData).geometry;
+				return this.displayData.geometry;
 			}
 		}
 
 		if (this.rawDisplayData !== null) {
 			if (this.rawDisplayData.type === DisplayType.Mesh) {
-				return (this.rawDisplayData).geometry;
+				return this.rawDisplayData.geometry;
 			}
 
 			if (this.rawDisplayData.type === DisplayType.Path) {
-				return (this.rawDisplayData).geometry;
+				return this.rawDisplayData.geometry;
 			}
 		}
 
 		return null;
 	}
 
-	getBoundingBox() {
+	/* getBoundingBox() {
 		if (this.displayData !== null && this.displayData.type === DisplayType.BoundingBox) {
 			return this.displayData.boundingBox;
 		}
@@ -89,7 +85,7 @@ import { TransformObject } from './TransformObject';
 		}
 
 		return null;
-	}
+	} */
 
 	getTextureData() {
 		if (this.displayData !== null) {
@@ -144,93 +140,94 @@ export class Slot extends TransformObject {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-	
+
 	displayController;
- _displayDataDirty
- _displayDirty
- _geometryDirty
- _textureDirty
- _visibleDirty
- _blendModeDirty
- _zOrderDirty
+	_displayDataDirty;
+	_displayDirty;
+	_geometryDirty;
+	_textureDirty;
+	_visibleDirty;
+	_blendModeDirty;
+	_zOrderDirty;
 	/**
 	 * @internal
 	 */
-_colorDirty
+	_colorDirty;
 	/**
 	 * @internal
 	 */
-_verticesDirty
- _transformDirty
- _visible
- _blendMode;
- _displayIndex;
- _animationDisplayIndex;
- _cachedFrameIndex;
+	_verticesDirty;
+	_transformDirty;
+	_visible;
+	_blendMode;
+	_displayIndex;
+	_animationDisplayIndex;
+	_cachedFrameIndex;
 	/**
 	 * @internal
 	 */
-_zOrder;
+	_zOrder;
 	/**
 	 * @internal
 	 */
-_zIndex;
+	_zIndex;
 	/**
 	 * @internal
 	 */
-_pivotX;
+	_pivotX;
 	/**
 	 * @internal
 	 */
-_pivotY;
- _localMatrix = new Matrix();
+	_pivotY;
+	_localMatrix = new Matrix();
 	/**
 	 * @internal
 	 */
-_colorTransform = new ColorTransform();
+	_colorTransform = new ColorTransform();
 	/**
 	 * @internal
 	 */
-_displayFrames = [];
+	_displayFrames = [];
 	/**
 	 * @internal
 	 */
-_geometryBones = [];
+	_geometryBones = [];
 	/**
 	 * @internal
 	 */
-_slotData;
+	_slotData;
 	/**
 	 * @internal
 	 */
-_displayFrame;
+	_displayFrame;
 	/**
 	 * @internal
 	 */
-_geometryData;
- _boundingBoxData;
- _textureData;
- _rawDisplay = null; // Initial value.
- _meshDisplay = null; // Initial value.
- _display = null;
- _childArmature;
+	_geometryData;
+	_boundingBoxData;
+	_textureData;
+	_rawDisplay = null; // Initial value.
+	_meshDisplay = null; // Initial value.
+	_display = null;
+	_childArmature;
 	/**
 	 * @private
 	 */
- _parent;
+	_parent;
 	/**
 	 * @internal
 	 */
-_cachedFrameIndices;
+	_cachedFrameIndices;
 
- _onClear(){
+	_onClear() {
 		super._onClear();
 
 		const disposeDisplayList = [];
 		for (const dispayFrame of this._displayFrames) {
 			const display = dispayFrame.display;
 			if (
-				display !== this._rawDisplay && display !== this._meshDisplay &&
+				display !== this._rawDisplay &&
+				display !== this._meshDisplay &&
 				disposeDisplayList.indexOf(display) < 0
 			) {
 				disposeDisplayList.push(display);
@@ -242,13 +239,13 @@ _cachedFrameIndices;
 		for (const eachDisplay of disposeDisplayList) {
 			if (eachDisplay instanceof Armature) {
 				eachDisplay.dispose();
-			}
-			else {
+			} else {
 				this._disposeDisplay(eachDisplay, true);
 			}
 		}
 
-		if (this._meshDisplay !== null && this._meshDisplay !== this._rawDisplay) { // May be _meshDisplay and _rawDisplay is the same one.
+		if (this._meshDisplay !== null && this._meshDisplay !== this._rawDisplay) {
+			// May be _meshDisplay and _rawDisplay is the same one.
 			this._disposeDisplay(this._meshDisplay, false);
 		}
 
@@ -294,25 +291,25 @@ _cachedFrameIndices;
 		this._cachedFrameIndices = null;
 	}
 
-_initDisplay(value, isRetain){}
-_disposeDisplay(value, isRelease){}
-_onUpdateDisplay(){}
-_addDisplay(){}
-_replaceDisplay(value){}
-_removeDisplay(){}
-_updateZOrder(){}
+	_initDisplay(value, isRetain) {}
+	_disposeDisplay(value, isRelease) {}
+	_onUpdateDisplay() {}
+	_addDisplay() {}
+	_replaceDisplay(value) {}
+	_removeDisplay() {}
+	_updateZOrder() {}
 	/**
 	 * @internal
 	 */
-_updateVisible(){}
-_updateBlendMode(){}
-_updateColor(){}
-_updateFrame(){}
-_updateMesh(){}
-_updateTransform(){}
-_identityTransform(){}
+	_updateVisible() {}
+	_updateBlendMode() {}
+	_updateColor() {}
+	_updateFrame() {}
+	_updateMesh() {}
+	_updateTransform() {}
+	_identityTransform() {}
 
- _hasDisplay(display) {
+	_hasDisplay(display) {
 		for (const displayFrame of this._displayFrames) {
 			if (displayFrame.display === display) {
 				return true;
@@ -324,7 +321,7 @@ _identityTransform(){}
 	/**
 	 * @internal
 	 */
-_isBonesUpdate() {
+	_isBonesUpdate() {
 		for (const bone of this._geometryBones) {
 			if (bone !== null && bone._childrenTransformDirty) {
 				return true;
@@ -336,7 +333,7 @@ _isBonesUpdate() {
 	/**
 	 * @internal
 	 */
-_updateAlpha() {
+	_updateAlpha() {
 		const globalAlpha = this._alpha * this._parent._globalAlpha;
 
 		if (this._globalAlpha !== globalAlpha) {
@@ -345,7 +342,7 @@ _updateAlpha() {
 		}
 	}
 
- _updateDisplayData(){
+	_updateDisplayData() {
 		const prevDisplayFrame = this._displayFrame;
 		const prevGeometryData = this._geometryData;
 		const prevTextureData = this._textureData;
@@ -369,11 +366,15 @@ _updateAlpha() {
 
 		if (
 			this._displayFrame !== prevDisplayFrame ||
-			this._geometryData !== prevGeometryData || this._textureData !== prevTextureData
+			this._geometryData !== prevGeometryData ||
+			this._textureData !== prevTextureData
 		) {
 			// Update pivot offset.
 			if (this._geometryData === null && this._textureData !== null) {
-				const imageDisplayData = ((displayData !== null && displayData.type === DisplayType.Image) ? displayData : rawDisplayData); //
+				const imageDisplayData =
+					displayData !== null && displayData.type === DisplayType.Image
+						? displayData
+						: rawDisplayData; //
 				const scale = this._textureData.parent.scale * this._armature._armatureData.scale;
 				const frame = this._textureData.frame;
 
@@ -413,30 +414,33 @@ _updateAlpha() {
 				}
 
 				if (!DragonBones.yDown) {
-					this._pivotY = (this._textureData.rotated ? this._textureData.region.width : this._textureData.region.height) * scale - this._pivotY;
+					this._pivotY =
+						(this._textureData.rotated
+							? this._textureData.region.width
+							: this._textureData.region.height) *
+							scale -
+						this._pivotY;
 				}
-			}
-			else {
+			} else {
 				this._pivotX = 0.0;
 				this._pivotY = 0.0;
 			}
 
 			// Update original transform.
-			if (rawDisplayData !== null) { // Compatible.
+			if (rawDisplayData !== null) {
+				// Compatible.
 				this.origin = rawDisplayData.transform;
-			}
-			else if (displayData !== null) { // Compatible.
+			} else if (displayData !== null) {
+				// Compatible.
 				this.origin = displayData.transform;
-			}
-			else {
+			} else {
 				this.origin = null;
 			}
 
 			// TODO remove slot offset.
 			if (this.origin !== null) {
 				this.global.copyFrom(this.origin).add(this.offset).toMatrix(this._localMatrix);
-			}
-			else {
+			} else {
 				this.global.copyFrom(this.offset).toMatrix(this._localMatrix);
 			}
 
@@ -453,8 +457,7 @@ _updateAlpha() {
 							this._geometryBones.push(bone);
 						}
 					}
-				}
-				else {
+				} else {
 					this._geometryBones.length = 0;
 					this._geometryData = null;
 				}
@@ -465,7 +468,7 @@ _updateAlpha() {
 		}
 	}
 
- _updateDisplay(){
+	_updateDisplay() {
 		const prevDisplay = this._display !== null ? this._display : this._rawDisplay;
 		const prevChildArmature = this._childArmature;
 
@@ -475,12 +478,10 @@ _updateAlpha() {
 			if (this._display !== null && this._display instanceof Armature) {
 				this._childArmature = this._display;
 				this._display = this._childArmature.display;
-			}
-			else {
+			} else {
 				this._childArmature = null;
 			}
-		}
-		else {
+		} else {
 			this._display = null;
 			this._childArmature = null;
 		}
@@ -512,7 +513,8 @@ _updateAlpha() {
 			if (this._childArmature !== null) {
 				this._childArmature._parent = this; // Update child armature parent.
 				this._childArmature.clock = this._armature.clock;
-				if (this._childArmature.inheritAnimation) { // Set child armature cache frameRate.
+				if (this._childArmature.inheritAnimation) {
+					// Set child armature cache frameRate.
 					if (this._childArmature.cacheFrameRate === 0) {
 						const cacheFrameRate = this._armature.cacheFrameRate;
 						if (cacheFrameRate !== 0) {
@@ -523,7 +525,10 @@ _updateAlpha() {
 					// Child armature action.
 					if (this._displayFrame !== null) {
 						let actions = null;
-						let displayData = this._displayFrame.displayData !== null ? this._displayFrame.displayData : this._displayFrame.rawDisplayData;
+						let displayData =
+							this._displayFrame.displayData !== null
+								? this._displayFrame.displayData
+								: this._displayFrame.rawDisplayData;
 						if (displayData !== null && displayData.type === DisplayType.Armature) {
 							actions = displayData.actions;
 						}
@@ -535,8 +540,7 @@ _updateAlpha() {
 								eventObject.slot = this;
 								this._armature._bufferAction(eventObject, false);
 							}
-						}
-						else {
+						} else {
 							this._childArmature.animation.play();
 						}
 					}
@@ -545,22 +549,24 @@ _updateAlpha() {
 		}
 	}
 
- _updateGlobalTransformMatrix(isCache){
-		const parentMatrix = this._parent._boneData.type === BoneType.Bone ? this._parent.globalTransformMatrix : this._parent._getGlobalTransformMatrix(this.global.x, this.global.y);
+	_updateGlobalTransformMatrix(isCache) {
+		const parentMatrix =
+			this._parent._boneData.type === BoneType.Bone
+				? this._parent.globalTransformMatrix
+				: this._parent._getGlobalTransformMatrix(this.global.x, this.global.y);
 		this.globalTransformMatrix.copyFrom(this._localMatrix);
 		this.globalTransformMatrix.concat(parentMatrix);
 
 		if (isCache) {
 			this.global.fromMatrix(this.globalTransformMatrix);
-		}
-		else {
+		} else {
 			this._globalDirty = true;
 		}
 	}
 	/**
 	 * @internal
 	 */
-_setDisplayIndex(value, isAnimation = false){
+	_setDisplayIndex(value, isAnimation = false) {
 		if (isAnimation) {
 			if (this._animationDisplayIndex === value) {
 				return;
@@ -575,12 +581,14 @@ _setDisplayIndex(value, isAnimation = false){
 
 		this._displayIndex = value < this._displayFrames.length ? value : this._displayFrames.length - 1;
 		this._displayDataDirty = true;
-		this._displayDirty = this._displayIndex < 0 || this._display !== this._displayFrames[this._displayIndex].display;
+		this._displayDirty =
+			this._displayIndex < 0 || this._display !== this._displayFrames[this._displayIndex].display;
 	}
+
 	/**
 	 * @internal
 	 */
-_setZOrder(value) {
+	_setZOrder(value) {
 		if (this._zOrder === value) {
 			// return false;
 		}
@@ -590,18 +598,20 @@ _setZOrder(value) {
 
 		return this._zOrderDirty;
 	}
+
 	/**
 	 * @internal
 	 */
-_setColor(value) {
+	_setColor(value) {
 		this._colorTransform.copyFrom(value);
 
-		return this._colorDirty = true;
+		return (this._colorDirty = true);
 	}
+
 	/**
 	 * @internal
 	 */
-init(slotData, armatureValue, rawDisplay, meshDisplay){
+	init(slotData, armatureValue, rawDisplay, meshDisplay) {
 		if (this._slotData !== null) {
 			return;
 		}
@@ -622,8 +632,7 @@ init(slotData, armatureValue, rawDisplay, meshDisplay){
 
 		if (slotParent !== null) {
 			this._parent = slotParent;
-		}
-		else {
+		} else {
 			// Never;
 		}
 
@@ -637,10 +646,11 @@ init(slotData, armatureValue, rawDisplay, meshDisplay){
 		this._onUpdateDisplay();
 		this._addDisplay();
 	}
+
 	/**
 	 * @internal
 	 */
-update(cacheFrameIndex){
+	update(cacheFrameIndex) {
 		if (this._displayDataDirty) {
 			this._updateDisplayData();
 			this._displayDataDirty = false;
@@ -652,7 +662,11 @@ update(cacheFrameIndex){
 		}
 
 		if (this._geometryDirty || this._textureDirty) {
-			if (this._display === null || this._display === this._rawDisplay || this._display === this._meshDisplay) {
+			if (
+				this._display === null ||
+				this._display === this._rawDisplay ||
+				this._display === this._meshDisplay
+			) {
 				this._updateFrame();
 			}
 
@@ -697,34 +711,36 @@ update(cacheFrameIndex){
 				this._updateMesh();
 			}
 
-			if (isSkinned || isSurface) { // Compatible.
+			if (isSkinned || isSurface) {
+				// Compatible.
 				return;
 			}
 		}
 
 		if (cacheFrameIndex >= 0 && this._cachedFrameIndices !== null) {
 			const cachedFrameIndex = this._cachedFrameIndices[cacheFrameIndex];
-			if (cachedFrameIndex >= 0 && this._cachedFrameIndex === cachedFrameIndex) { // Same cache.
+			if (cachedFrameIndex >= 0 && this._cachedFrameIndex === cachedFrameIndex) {
+				// Same cache.
 				this._transformDirty = false;
-			}
-			else if (cachedFrameIndex >= 0) { // Has been Cached.
+			} else if (cachedFrameIndex >= 0) {
+				// Has been Cached.
 				this._transformDirty = true;
 				this._cachedFrameIndex = cachedFrameIndex;
-			}
-			else if (this._transformDirty || this._parent._childrenTransformDirty) { // Dirty.
+			} else if (this._transformDirty || this._parent._childrenTransformDirty) {
+				// Dirty.
 				this._transformDirty = true;
 				this._cachedFrameIndex = -1;
-			}
-			else if (this._cachedFrameIndex >= 0) { // Same cache, but not set index yet.
+			} else if (this._cachedFrameIndex >= 0) {
+				// Same cache, but not set index yet.
 				this._transformDirty = false;
 				this._cachedFrameIndices[cacheFrameIndex] = this._cachedFrameIndex;
-			}
-			else { // Dirty.
+			} else {
+				// Dirty.
 				this._transformDirty = true;
 				this._cachedFrameIndex = -1;
 			}
-		}
-		else if (this._transformDirty || this._parent._childrenTransformDirty) { // Dirty.
+		} else if (this._transformDirty || this._parent._childrenTransformDirty) {
+			// Dirty.
 			cacheFrameIndex = -1;
 			this._transformDirty = true;
 			this._cachedFrameIndex = -1;
@@ -736,28 +752,29 @@ update(cacheFrameIndex){
 				this._updateGlobalTransformMatrix(isCache);
 
 				if (isCache && this._cachedFrameIndices !== null) {
-					this._cachedFrameIndex = this._cachedFrameIndices[cacheFrameIndex] = this._armature._armatureData.setCacheFrame(this.globalTransformMatrix, this.global);
+					this._cachedFrameIndex = this._cachedFrameIndices[
+						cacheFrameIndex
+					] = this._armature._armatureData.setCacheFrame(this.globalTransformMatrix, this.global);
 				}
-			}
-			else {
-				this._armature._armatureData.getCacheFrame(this.globalTransformMatrix, this.global, this._cachedFrameIndex);
+			} else {
+				this._armature._armatureData.getCacheFrame(
+					this.globalTransformMatrix,
+					this.global,
+					this._cachedFrameIndex
+				);
 			}
 
 			this._updateTransform();
 			this._transformDirty = false;
 		}
 	}
+
 	/**
 	 * - Forces the slot to update the state of the display object in the next frame.
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-	/**
-	 * - 强制插槽在下一帧更新显示对象的状态。
-	 * @version DragonBones 4.5
-	 * @language zh_CN
-	 */
-invalidUpdate(){
+	invalidUpdate() {
 		this._displayDataDirty = true;
 		this._displayDirty = true;
 		//
@@ -766,20 +783,20 @@ invalidUpdate(){
 	/**
 	 * @private
 	 */
-updateTransformAndMatrix(){
+	updateTransformAndMatrix() {
 		if (this._transformDirty) {
 			this._updateGlobalTransformMatrix(false);
 			this._transformDirty = false;
 		}
 	}
+
 	/**
 	 * @private
 	 */
-replaceRawDisplayData(displayData, index = -1){
+	replaceRawDisplayData(displayData, index = -1) {
 		if (index < 0) {
 			index = this._displayIndex < 0 ? 0 : this._displayIndex;
-		}
-		else if (index >= this._displayFrames.length) {
+		} else if (index >= this._displayFrames.length) {
 			return;
 		}
 
@@ -802,14 +819,14 @@ replaceRawDisplayData(displayData, index = -1){
 			}
 		}
 	}
+
 	/**
 	 * @private
 	 */
-replaceDisplayData(displayData, index = -1){
+	replaceDisplayData(displayData, index = -1) {
 		if (index < 0) {
 			index = this._displayIndex < 0 ? 0 : this._displayIndex;
-		}
-		else if (index >= this._displayFrames.length) {
+		} else if (index >= this._displayFrames.length) {
 			return;
 		}
 
@@ -822,14 +839,14 @@ replaceDisplayData(displayData, index = -1){
 			}
 		}
 	}
+
 	/**
 	 * @private
 	 */
-replaceTextureData(textureData, index = -1){
+	replaceTextureData(textureData, index = -1) {
 		if (index < 0) {
 			index = this._displayIndex < 0 ? 0 : this._displayIndex;
-		}
-		else if (index >= this._displayFrames.length) {
+		} else if (index >= this._displayFrames.length) {
 			return;
 		}
 
@@ -842,14 +859,14 @@ replaceTextureData(textureData, index = -1){
 			}
 		}
 	}
+
 	/**
 	 * @private
 	 */
-replaceDisplay(value , index = -1){
+	replaceDisplay(value, index = -1) {
 		if (index < 0) {
 			index = this._displayIndex < 0 ? 0 : this._displayIndex;
-		}
-		else if (index >= this._displayFrames.length) {
+		} else if (index >= this._displayFrames.length) {
 			return;
 		}
 
@@ -860,20 +877,21 @@ replaceDisplay(value , index = -1){
 
 			if (
 				prevDisplay !== null &&
-				prevDisplay !== this._rawDisplay && prevDisplay !== this._meshDisplay &&
+				prevDisplay !== this._rawDisplay &&
+				prevDisplay !== this._meshDisplay &&
 				!this._hasDisplay(prevDisplay)
 			) {
 				if (prevDisplay instanceof Armature) {
 					// (eachDisplay as Armature).dispose();
-				}
-				else {
+				} else {
 					this._disposeDisplay(prevDisplay, true);
 				}
 			}
 
 			if (
 				value !== null &&
-				value !== this._rawDisplay && value !== this._meshDisplay &&
+				value !== this._rawDisplay &&
+				value !== this._meshDisplay &&
 				!this._hasDisplay(prevDisplay) &&
 				!(value instanceof Armature)
 			) {
@@ -895,7 +913,7 @@ replaceDisplay(value , index = -1){
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
-containsPoint(x, y) {
+	containsPoint(x, y) {
 		if (this._boundingBoxData === null) {
 			return false;
 		}
@@ -908,6 +926,7 @@ containsPoint(x, y) {
 
 		return this._boundingBoxData.containsPoint(Slot._helpPoint.x, Slot._helpPoint.y);
 	}
+
 	/**
 	 * - Check whether a specific segment intersects a custom bounding box for the slot.
 	 * The coordinate system of the segment and intersection is the inner coordinate system of the armature.
@@ -923,9 +942,11 @@ containsPoint(x, y) {
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
-	
-intersectsSegment(
-		xA, yA, xB, yB,
+	intersectsSegment(
+		xA,
+		yA,
+		xB,
+		yB,
 		intersectionPointA = null,
 		intersectionPointB = null,
 		normalRadians = null
@@ -944,63 +965,92 @@ intersectsSegment(
 		xB = Slot._helpPoint.x;
 		yB = Slot._helpPoint.y;
 
-		const intersectionCount = this._boundingBoxData.intersectsSegment(xA, yA, xB, yB, intersectionPointA, intersectionPointB, normalRadians);
+		const intersectionCount = this._boundingBoxData.intersectsSegment(
+			xA,
+			yA,
+			xB,
+			yB,
+			intersectionPointA,
+			intersectionPointB,
+			normalRadians
+		);
 		if (intersectionCount > 0) {
 			if (intersectionCount === 1 || intersectionCount === 2) {
 				if (intersectionPointA !== null) {
-					this.globalTransformMatrix.transformPoint(intersectionPointA.x, intersectionPointA.y, intersectionPointA);
+					this.globalTransformMatrix.transformPoint(
+						intersectionPointA.x,
+						intersectionPointA.y,
+						intersectionPointA
+					);
 					if (intersectionPointB !== null) {
 						intersectionPointB.x = intersectionPointA.x;
 						intersectionPointB.y = intersectionPointA.y;
 					}
+				} else if (intersectionPointB !== null) {
+					this.globalTransformMatrix.transformPoint(
+						intersectionPointB.x,
+						intersectionPointB.y,
+						intersectionPointB
+					);
 				}
-				else if (intersectionPointB !== null) {
-					this.globalTransformMatrix.transformPoint(intersectionPointB.x, intersectionPointB.y, intersectionPointB);
-				}
-			}
-			else {
+			} else {
 				if (intersectionPointA !== null) {
-					this.globalTransformMatrix.transformPoint(intersectionPointA.x, intersectionPointA.y, intersectionPointA);
+					this.globalTransformMatrix.transformPoint(
+						intersectionPointA.x,
+						intersectionPointA.y,
+						intersectionPointA
+					);
 				}
 
 				if (intersectionPointB !== null) {
-					this.globalTransformMatrix.transformPoint(intersectionPointB.x, intersectionPointB.y, intersectionPointB);
+					this.globalTransformMatrix.transformPoint(
+						intersectionPointB.x,
+						intersectionPointB.y,
+						intersectionPointB
+					);
 				}
 			}
 
 			if (normalRadians !== null) {
-				this.globalTransformMatrix.transformPoint(Math.cos(normalRadians.x), Math.sin(normalRadians.x), Slot._helpPoint, true);
+				this.globalTransformMatrix.transformPoint(
+					Math.cos(normalRadians.x),
+					Math.sin(normalRadians.x),
+					Slot._helpPoint,
+					true
+				);
 				normalRadians.x = Math.atan2(Slot._helpPoint.y, Slot._helpPoint.x);
 
-				this.globalTransformMatrix.transformPoint(Math.cos(normalRadians.y), Math.sin(normalRadians.y), Slot._helpPoint, true);
+				this.globalTransformMatrix.transformPoint(
+					Math.cos(normalRadians.y),
+					Math.sin(normalRadians.y),
+					Slot._helpPoint,
+					true
+				);
 				normalRadians.y = Math.atan2(Slot._helpPoint.y, Slot._helpPoint.x);
 			}
 		}
 
 		return intersectionCount;
 	}
+
 	/**
 	 * @private
 	 */
-getDisplayFrameAt(index) {
+	getDisplayFrameAt(index) {
 		return this._displayFrames[index];
 	}
+
 	/**
 	 * - The visible of slot's display object.
 	 * @default true
 	 * @version DragonBones 5.6
 	 * @language en_US
 	 */
-	/**
-	 * - 插槽的显示对象的可见。
-	 * @default true
-	 * @version DragonBones 5.6
-	 * @language zh_CN
-	 */
-get visible() {
+	get visible() {
 		return this._visible;
 	}
-set visible(value) {
+
+	set visible(value) {
 		if (this._visible === value) {
 			return;
 		}
@@ -1008,13 +1058,14 @@ set visible(value) {
 		this._visible = value;
 		this._updateVisible();
 	}
+
 	/**
 	 * @private
 	 */
-get displayFrameCount() {
+	get displayFrameCount() {
 		return this._displayFrames.length;
 	}
-set displayFrameCount(value) {
+	set displayFrameCount(value) {
 		const prevCount = this._displayFrames.length;
 		if (prevCount < value) {
 			this._displayFrames.length = value;
@@ -1022,8 +1073,7 @@ set displayFrameCount(value) {
 			for (let i = prevCount; i < value; ++i) {
 				this._displayFrames[i] = BaseObject.borrowObject(DisplayFrame);
 			}
-		}
-		else if (prevCount > value) {
+		} else if (prevCount > value) {
 			for (let i = prevCount - 1; i < value; --i) {
 				this.replaceDisplay(null, i);
 				this._displayFrames[i].returnToPool();
@@ -1032,6 +1082,7 @@ set displayFrameCount(value) {
 			this._displayFrames.length = value;
 		}
 	}
+
 	/**
 	 * - The index of the display object displayed in the display list.
 	 * @example
@@ -1043,21 +1094,10 @@ set displayFrameCount(value) {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-	/**
-	 * - 此时显示的显示对象在显示列表中的索引。
-	 * @example
-	 * <pre>
-	 *     let slot = armature.getSlot("weapon");
-	 *     slot.displayIndex = 3;
-	 *     slot.displayController = "none";
-	 * </pre>
-	 * @version DragonBones 4.5
-	 * @language zh_CN
-	 */
-get displayIndex() {
+	get displayIndex() {
 		return this._displayIndex;
 	}
-set displayIndex(value) {
+	set displayIndex(value) {
 		this._setDisplayIndex(value);
 		this.update(-1);
 	}
@@ -1067,8 +1107,8 @@ set displayIndex(value) {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	
-get name() {
+
+	get name() {
 		return this._slotData.name;
 	}
 	/**
@@ -1076,8 +1116,8 @@ get name() {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	
-get displayList() {
+
+	get displayList() {
 		const displays = new Array();
 		for (const displayFrame of this._displayFrames) {
 			displays.push(displayFrame.display);
@@ -1085,7 +1125,7 @@ get displayList() {
 
 		return displays;
 	}
-set displayList(value) {
+	set displayList(value) {
 		this.displayFrameCount = value.length;
 		let index = 0;
 		for (const eachDisplay of value) {
@@ -1098,8 +1138,8 @@ set displayList(value) {
 	 * @version DragonBones 4.5
 	 * @language en_US
 	 */
-	
-get slotData() {
+
+	get slotData() {
 		return this._slotData;
 	}
 	/**
@@ -1107,20 +1147,20 @@ get slotData() {
 	 * @version DragonBones 5.0
 	 * @language en_US
 	 */
-	
-get boundingBoxData() {
+
+	get boundingBoxData() {
 		return this._boundingBoxData;
 	}
 	/**
 	 * @private
 	 */
-get rawDisplay() {
+	get rawDisplay() {
 		return this._rawDisplay;
 	}
 	/**
 	 * @private
 	 */
-get meshDisplay() {
+	get meshDisplay() {
 		return this._meshDisplay;
 	}
 	/**
@@ -1133,11 +1173,11 @@ get meshDisplay() {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	
-get display() {
+
+	get display() {
 		return this._display;
 	}
-set display(value) {
+	set display(value) {
 		if (this._display === value) {
 			return;
 		}
@@ -1149,6 +1189,7 @@ set display(value) {
 
 		this.replaceDisplay(value, this._displayIndex);
 	}
+
 	/**
 	 * - The child armature that the slot displayed at current time.
 	 * @example
@@ -1163,25 +1204,10 @@ set display(value) {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	/**
-	 * - 插槽此时显示的子骨架。
-	 * 注意，被替换的对象或子骨架并不会被回收，根据语言和引擎的不同，需要额外处理。
-	 * @example
-	 * <pre>
-	 *     let slot = armature.getSlot("weapon");
-	 *     let prevChildArmature = slot.childArmature;
-	 *     if (prevChildArmature) {
-	 *         prevChildArmature.dispose();
-	 *     }
-	 *     slot.childArmature = factory.buildArmature("weapon_blabla", "weapon_blabla_project");
-	 * </pre>
-	 * @version DragonBones 3.0
-	 * @language zh_CN
-	 */
-get childArmature() {
+	get childArmature() {
 		return this._childArmature;
 	}
-set childArmature(value) {
+	set childArmature(value) {
 		if (this._childArmature === value) {
 			return;
 		}
@@ -1193,8 +1219,8 @@ set childArmature(value) {
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-	
-get parent() {
+
+	get parent() {
 		return this._parent;
 	}
 
@@ -1203,8 +1229,8 @@ get parent() {
 	 * @deprecated
 	 * @language en_US
 	 */
-	
-getDisplay() {
+
+	getDisplay() {
 		return this._display;
 	}
 	/**
@@ -1212,7 +1238,7 @@ getDisplay() {
 	 * @deprecated
 	 * @language en_US
 	 */
-	
+
 	setDisplay(value) {
 		this.display = value;
 	}

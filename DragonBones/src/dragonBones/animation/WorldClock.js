@@ -1,5 +1,3 @@
-import { IAnimatable } from './IAnimatable';
-
 /**
  * - Worldclock provides clock support for animations, advance time for each IAnimatable object added to the instance.
  * @see dragonBones.IAnimateble
@@ -7,15 +5,25 @@ import { IAnimatable } from './IAnimatable';
  * @version DragonBones 3.0
  * @language en_US
  */
-
-export class WorldClock extends IAnimatable {
+export class WorldClock {
 	/**
 	 * - Current time. (In seconds)
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-
 	time = 0.0;
+
+	/**
+	 * - The Wordclock instance to which the current belongs.
+	 * @example
+	 * <pre>
+	 *     armature.clock = factory.clock; // Add armature to clock.
+	 *     armature.clock = null; // Remove armature from clock.
+	 * </pre>
+	 * @version DragonBones 5.0
+	 * @language en_US
+	 */
+	clock;
 
 	/**
 	 * - The play speed, used to control animation speed-shift play.
@@ -26,7 +34,6 @@ export class WorldClock extends IAnimatable {
 	 */
 	timeScale = 1.0;
 
-	_systemTime = 0.0;
 	_animatebles = [];
 	_clock = null;
 
@@ -37,29 +44,19 @@ export class WorldClock extends IAnimatable {
 	 * @language en_US
 	 */
 	constructor(time = 0.0) {
-		super();
 		this.time = time;
-		this._systemTime = new Date().getTime() * 0.001;
 	}
+
 	/**
-	 * - Advance time for all IAnimatable instances.
-	 * @param passedTime - Passed time. [-1: Automatically calculates the time difference between the current frame and the previous frame, [0~N): Passed time] (In seconds)
+	 * - Advance time.
+	 * @param passedTime - Passed time. (In seconds)
 	 * @version DragonBones 3.0
 	 * @language en_US
 	 */
-
 	advanceTime(passedTime) {
 		if (passedTime !== passedTime) {
 			passedTime = 0.0;
 		}
-
-		const currentTime = Date.now() * 0.001;
-
-		if (passedTime < 0.0) {
-			passedTime = currentTime - this._systemTime;
-		}
-
-		this._systemTime = currentTime;
 
 		if (this.timeScale !== 1.0) {
 			passedTime *= this.timeScale;
@@ -165,12 +162,14 @@ export class WorldClock extends IAnimatable {
 			}
 		}
 	}
+
 	/**
 	 * @inheritDoc
 	 */
 	get clock() {
 		return this._clock;
 	}
+
 	set clock(value) {
 		if (this._clock === value) {
 			return;

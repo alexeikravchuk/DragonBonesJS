@@ -158,6 +158,7 @@ export class PixiArmatureDisplay extends Sprite {
 			}
 		}
 	}
+	
 	/**
 	 * @inheritDoc
 	 */
