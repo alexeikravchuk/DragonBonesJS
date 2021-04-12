@@ -1,5 +1,5 @@
 import { BaseObject } from '../core/BaseObject';
-import { AnimationBlendType, BoneType, TimelineType } from '../core/DragonBones';
+import { AnimationBlendType, BinaryOffset, BoneType, TimelineType } from '../core/DragonBones';
 import { EventObject } from '../event/EventObject';
 import {
 	ActionTimelineState,

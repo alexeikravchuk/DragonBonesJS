@@ -1,5 +1,5 @@
 import { BaseObject } from '../core/BaseObject';
-import { ActionType } from '../core/DragonBones';
+import { ActionType, BinaryOffset } from '../core/DragonBones';
 import { EventObject } from '../event/EventObject';
 import { Transform } from '../geom/Transform';
 import {
