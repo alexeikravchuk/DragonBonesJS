@@ -75,7 +75,7 @@ export class DisplayFrame extends BaseObject {
 		return null;
 	}
 
-	/* getBoundingBox() {
+	getBoundingBox() {
 		if (this.displayData !== null && this.displayData.type === DisplayType.BoundingBox) {
 			return this.displayData.boundingBox;
 		}
@@ -85,7 +85,7 @@ export class DisplayFrame extends BaseObject {
 		}
 
 		return null;
-	} */
+	}
 
 	getTextureData() {
 		if (this.displayData !== null) {
