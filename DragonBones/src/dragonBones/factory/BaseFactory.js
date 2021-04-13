@@ -4,6 +4,7 @@ import { Surface } from '../armature/Surface';
 import { BaseObject } from '../core/BaseObject';
 import { BoneType, ConstraintType, DisplayType } from '../core/DragonBones';
 import { BinaryDataParser } from '../parser/BinaryDataParser';
+import { ObjectDataParser } from '../parser/ObjectDataParser';
 
 /**
  * - Base class for the factory that create the armatures. (Typically only one global factory instance is required)
@@ -17,6 +18,7 @@ import { BinaryDataParser } from '../parser/BinaryDataParser';
  * @language en_US
  */
 export class BaseFactory {
+	static _objectParser = null;
 	static _binaryParser = null;
 	/**
 	 * @private
@@ -34,12 +36,15 @@ export class BaseFactory {
 	 * @language en_US
 	 */
 	constructor(dataParser = null) {
+		if (BaseFactory._objectParser === null) {
+			BaseFactory._objectParser = new ObjectDataParser();
+		}
 
 		if (BaseFactory._binaryParser === null) {
 			BaseFactory._binaryParser = new BinaryDataParser();
 		}
 
-		this._dataParser = dataParser !== null ? dataParser : BaseFactory._binaryParser;
+		this._dataParser = dataParser !== null ? dataParser : BaseFactory._objectParser;
 	}
 
 	_isSupportMesh() {
@@ -311,11 +316,12 @@ export class BaseFactory {
 	 * @language en_US
 	 */
 	parseDragonBonesData(rawData, name = null, scale = 1.0) {
-		const dragonBonesData = this._dataParser.parseDragonBonesData(rawData, scale);
+		const dataParser = rawData instanceof ArrayBuffer ? BaseFactory._binaryParser : this._dataParser;
+		const dragonBonesData = dataParser.parseDragonBonesData(rawData, scale);
 
 		while (true) {
 			const textureAtlasData = this._buildTextureAtlasData(null, null);
-			if (this._dataParser.parseTextureAtlasData(null, textureAtlasData, scale)) {
+			if (dataParser.parseTextureAtlasData(null, textureAtlasData, scale)) {
 				this.addTextureAtlasData(textureAtlasData, name);
 			} else {
 				textureAtlasData.returnToPool();

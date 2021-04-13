@@ -1,14 +1,13 @@
 import { BaseObject } from '../core/BaseObject';
-import { BinaryOffset } from '../core/DragonBones';
+import { BinaryOffset, TimelineType } from '../core/DragonBones';
 import { AnimationData, TimelineData } from '../model/AnimationData';
 import { WeightData } from '../model/DisplayData';
 import { DataParser } from './DataParser';
-import { ObjectDataParser } from './ObjectDataParser';
 
 /**
  * @private
  */
-export class BinaryDataParser extends ObjectDataParser {
+export class BinaryDataParser extends DataParser {
 	_binaryOffset;
 	_binary;
 	_intArrayBuffer;
@@ -161,14 +160,14 @@ export class BinaryDataParser extends ObjectDataParser {
 	_parseAnimation(rawData) {
 		const animation = BaseObject.borrowObject(AnimationData);
 		animation.blendType = DataParser._getAnimationBlendType(
-			ObjectDataParser._getString(rawData, DataParser.BLEND_TYPE, '')
+			DataParser._getString(rawData, DataParser.BLEND_TYPE, '')
 		);
-		animation.frameCount = ObjectDataParser._getNumber(rawData, DataParser.DURATION, 0);
-		animation.playTimes = ObjectDataParser._getNumber(rawData, DataParser.PLAY_TIMES, 1);
+		animation.frameCount = DataParser._getNumber(rawData, DataParser.DURATION, 0);
+		animation.playTimes = DataParser._getNumber(rawData, DataParser.PLAY_TIMES, 1);
 		animation.duration = animation.frameCount / this._armature.frameRate; // float
-		animation.fadeInTime = ObjectDataParser._getNumber(rawData, DataParser.FADE_IN_TIME, 0.0);
-		animation.scale = ObjectDataParser._getNumber(rawData, DataParser.SCALE, 1.0);
-		animation.name = ObjectDataParser._getString(rawData, DataParser.NAME, DataParser.DEFAULT_NAME);
+		animation.fadeInTime = DataParser._getNumber(rawData, DataParser.FADE_IN_TIME, 0.0);
+		animation.scale = DataParser._getNumber(rawData, DataParser.SCALE, 1.0);
+		animation.name = DataParser._getString(rawData, DataParser.NAME, DataParser.DEFAULT_NAME);
 		if (animation.name.length === 0) {
 			animation.name = DataParser.DEFAULT_NAME;
 		}
@@ -252,14 +251,14 @@ export class BinaryDataParser extends ObjectDataParser {
 		if (DataParser.TIMELINE in rawData) {
 			const rawTimelines = rawData[DataParser.TIMELINE];
 			for (const rawTimeline of rawTimelines) {
-				const timelineOffset = ObjectDataParser._getNumber(rawTimeline, DataParser.OFFSET, 0);
+				const timelineOffset = DataParser._getNumber(rawTimeline, DataParser.OFFSET, 0);
 				if (timelineOffset >= 0) {
-					const timelineType = ObjectDataParser._getNumber(
+					const timelineType = DataParser._getNumber(
 						rawTimeline,
 						DataParser.TYPE,
 						TimelineType.Action
 					);
-					const timelineName = ObjectDataParser._getString(rawTimeline, DataParser.NAME, '');
+					const timelineName = DataParser._getString(rawTimeline, DataParser.NAME, '');
 					let timeline = null;
 
 					if (
@@ -268,8 +267,8 @@ export class BinaryDataParser extends ObjectDataParser {
 					) {
 						timeline = BaseObject.borrowObject(AnimationTimelineData);
 						const animaitonTimeline = timeline;
-						animaitonTimeline.x = ObjectDataParser._getNumber(rawTimeline, DataParser.X, 0.0);
-						animaitonTimeline.y = ObjectDataParser._getNumber(rawTimeline, DataParser.Y, 0.0);
+						animaitonTimeline.x = DataParser._getNumber(rawTimeline, DataParser.X, 0.0);
+						animaitonTimeline.y = DataParser._getNumber(rawTimeline, DataParser.Y, 0.0);
 					}
 
 					timeline = this._parseBinaryTimeline(timelineType, timelineOffset, timeline);
