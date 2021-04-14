@@ -1383,7 +1383,6 @@ export class AnimationState extends BaseObject {
 	}
 
 	set currentTime(value) {
-		debugger;
 		const currentPlayTimes =
 			this._actionTimeline.currentPlayTimes - (this._actionTimeline.playState > 0 ? 1 : 0);
 		if (value < 0 || this._duration < value) {
