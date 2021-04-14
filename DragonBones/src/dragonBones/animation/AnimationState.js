@@ -1056,10 +1056,16 @@ export class AnimationState extends BaseObject {
 		if (this._onComplete && this.isCompleted) {
 			this._onComplete();
 			this._onComplete = null;
+			this._onUpdate = null;
+		}
+
+		if (this._onUpdate && !this.isCompleted) {
+			this._onUpdate(passedTime);
 		}
 	}
 
 	_onComplete = null;
+	_onUpdate = null;
 
 	get onComplete() {
 		return this._onComplete;
@@ -1071,6 +1077,15 @@ export class AnimationState extends BaseObject {
 	 */
 	onComplete(cb) {
 		this._onComplete = cb;
+		return this;
+	}
+
+	/**
+	 * - Add function to be executed when the animation updates
+	 * @param cb - Callback function
+	 */
+	onUpdate(cb) {
+		this._onUpdate = cb;
 		return this;
 	}
 
