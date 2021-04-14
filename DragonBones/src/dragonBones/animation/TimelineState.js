@@ -14,7 +14,6 @@ import {
  * @internal
  */
 export class ActionTimelineState extends TimelineState {
-
 	_onCrossFrame(frameIndex) {
 		const eventDispatcher = this._armature.eventDispatcher;
 		if (this._animationState.actionEnabled) {
@@ -57,7 +56,6 @@ export class ActionTimelineState extends TimelineState {
 	_onUpdateFrame() {}
 
 	update(passedTime) {
-        
 		const prevState = this.playState;
 		let prevPlayTimes = this.currentPlayTimes;
 		let prevTime = this.currentTime;
@@ -92,6 +90,7 @@ export class ActionTimelineState extends TimelineState {
 
 			if (eventActive && this.currentPlayTimes !== prevPlayTimes) {
 				if (eventDispatcher.hasDBEventListener(EventObject.LOOP_COMPLETE)) {
+					// console.log(prevPlayTimes, this.currentPlayTimes);
 					loopCompleteEvent = BaseObject.borrowObject(EventObject);
 					loopCompleteEvent.type = EventObject.LOOP_COMPLETE;
 					loopCompleteEvent.armature = this._armature;
@@ -292,8 +291,6 @@ export class ActionTimelineState extends TimelineState {
  * @internal
  */
 export class ZOrderTimelineState extends TimelineState {
-	
-
 	_onArriveAtFrame() {
 		if (this.playState >= 0) {
 			const count = this._frameArray[this._frameOffset + 1];
@@ -311,8 +308,6 @@ export class ZOrderTimelineState extends TimelineState {
  * @internal
  */
 export class BoneAllTimelineState extends MutilpleValueTimelineState {
-	
-
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
 
@@ -377,8 +372,6 @@ export class BoneAllTimelineState extends MutilpleValueTimelineState {
  * @internal
  */
 export class BoneTranslateTimelineState extends DoubleValueTimelineState {
-	
-
 	init(armature, animationState, timelineData) {
 		super.init(armature, animationState, timelineData);
 
@@ -414,8 +407,6 @@ export class BoneTranslateTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class BoneRotateTimelineState extends DoubleValueTimelineState {
-	
-
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
 
@@ -465,8 +456,6 @@ export class BoneRotateTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class BoneScaleTimelineState extends DoubleValueTimelineState {
-	
-
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
 
@@ -511,8 +500,6 @@ export class BoneScaleTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class SurfaceTimelineState extends MutilpleValueTimelineState {
-	
-
 	_deformCount;
 	_deformOffset;
 	_sameValueOffset;
@@ -595,8 +582,6 @@ export class SurfaceTimelineState extends MutilpleValueTimelineState {
  * @internal
  */
 export class AlphaTimelineState extends SingleValueTimelineState {
-	
-
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
 
@@ -638,8 +623,6 @@ export class AlphaTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class SlotDisplayTimelineState extends TimelineState {
-	
-
 	_onArriveAtFrame() {
 		if (this.playState >= 0) {
 			const slot = this.target;
@@ -660,8 +643,6 @@ export class SlotDisplayTimelineState extends TimelineState {
  * @internal
  */
 export class SlotColorTimelineState extends TweenTimelineState {
-	
-
 	_current = [0, 0, 0, 0, 0, 0, 0, 0];
 	_difference = [0, 0, 0, 0, 0, 0, 0, 0];
 	_result = [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0];
@@ -813,8 +794,6 @@ export class SlotColorTimelineState extends TweenTimelineState {
  * @internal
  */
 export class SlotZIndexTimelineState extends SingleValueTimelineState {
-	
-
 	_onArriveAtFrame() {
 		super._onArriveAtFrame();
 
@@ -855,8 +834,6 @@ export class SlotZIndexTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class DeformTimelineState extends MutilpleValueTimelineState {
-	
-
 	displayFrame;
 
 	_deformCount;
@@ -952,8 +929,6 @@ export class DeformTimelineState extends MutilpleValueTimelineState {
  * @internal
  */
 export class IKConstraintTimelineState extends DoubleValueTimelineState {
-	
-
 	_onUpdateFrame() {
 		super._onUpdateFrame();
 
@@ -984,8 +959,6 @@ export class IKConstraintTimelineState extends DoubleValueTimelineState {
  * @internal
  */
 export class AnimationProgressTimelineState extends SingleValueTimelineState {
-	
-
 	_onUpdateFrame() {
 		super._onUpdateFrame();
 
@@ -1009,8 +982,6 @@ export class AnimationProgressTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class AnimationWeightTimelineState extends SingleValueTimelineState {
-	
-
 	_onUpdateFrame() {
 		super._onUpdateFrame();
 
@@ -1035,8 +1006,6 @@ export class AnimationWeightTimelineState extends SingleValueTimelineState {
  * @internal
  */
 export class AnimationParametersTimelineState extends DoubleValueTimelineState {
-	
-
 	_onUpdateFrame() {
 		super._onUpdateFrame();
 

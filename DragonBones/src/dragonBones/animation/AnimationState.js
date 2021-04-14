@@ -26,7 +26,6 @@ import {
      * @language en_US
      */
 export class AnimationState extends BaseObject {
-	
 	/**
 	 * @private
 	 */
@@ -1053,6 +1052,26 @@ export class AnimationState extends BaseObject {
 				}
 			}
 		}
+
+		if (this._onComplete && this.isCompleted) {
+			this._onComplete();
+			this._onComplete = null;
+		}
+	}
+
+	_onComplete = null;
+
+	get onComplete() {
+		return this._onComplete;
+	}
+
+	/**
+	 * - Add function to be executed when the animation ends
+	 * @param cb - Callback function
+	 */
+	onComplete(cb) {
+		this._onComplete = cb;
+		return this;
 	}
 
 	/**
@@ -1326,7 +1345,7 @@ export class AnimationState extends BaseObject {
 	get isPlaying() {
 		return (this._playheadState & 2) !== 0 && this._actionTimeline.playState <= 0;
 	}
-	
+
 	/**
 	 * - Whether the animation state is play completed.
 	 * @version DragonBones 3.0
@@ -1364,6 +1383,7 @@ export class AnimationState extends BaseObject {
 	}
 
 	set currentTime(value) {
+		debugger;
 		const currentPlayTimes =
 			this._actionTimeline.currentPlayTimes - (this._actionTimeline.playState > 0 ? 1 : 0);
 		if (value < 0 || this._duration < value) {

@@ -1,4 +1,5 @@
 import { WorldClock } from '../animation/WorldClock';
+import { EventObject } from '../event/EventObject';
 
 /**
  * @private
