@@ -1053,7 +1053,7 @@ export class AnimationState extends BaseObject {
 			}
 		}
 
-		if (this._onComplete && this.isCompleted) {
+		if (this._onComplete && (this.isCompleted || this._playheadState === 1)) {
 			this._onComplete();
 			this._onComplete = null;
 			this._onUpdate = null;
